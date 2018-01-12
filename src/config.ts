@@ -120,13 +120,13 @@ function backupAsync(cfg?: Config) {
 }
 
 export const setableKeys = {
-  botName: 'Bot display name. Default: Standup Phteve',
-  botEmoji: 'Bot emoji. Must be a default emoji. Default: :derpderp:',
-  botChannel: 'Standup channel. Default: topic-standup',
-  standupTime: 'Standup time. 24hour format. Default: 09:00',
-  standupTimeout: 'Standup timeout in seconds. Default: 900 (15minutes)',
-  standupCompleted: 'Manually reset the standupCompleted flag. E.g. set standupCompleted false',
-  debug: 'Enable debug mode. Default: false'
+  botName: 'Bot display name. Default: `Standup Phteve`',
+  botEmoji: 'Bot emoji. Must be a default emoji. Default: `:derpderp:`',
+  botChannel: 'Standup channel. Default: `topic-standup`',
+  standupTime: 'Standup time. 24hour format. Default: `09:00`',
+  standupTimeout: 'Standup timeout in seconds. Default: `900` (15minutes)',
+  standupCompleted: 'Manually reset the standupCompleted flag. E.g. `set standupCompleted false`',
+  debug: 'Enable debug mode. Default: `false`'
 }
 
 const defaultConfig = {
