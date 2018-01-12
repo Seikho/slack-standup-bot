@@ -2,12 +2,6 @@ import * as db from 'webscaledb'
 import * as path from 'path'
 import * as fs from 'fs'
 
-class ConfigError extends Error {
-  constructor(msg: string) {
-    super(`ConfigError: ${msg}`)
-  }
-}
-
 const DB_NAME = path.join(__dirname, '..', 'config.json')
 
 export interface Config {
@@ -39,7 +33,7 @@ export async function initaliseConfig() {
 
   const raw = await restoreAsync()
   if (!raw.token) {
-    throw new ConfigError('Token is not configured')
+    throw new Error('ConfigError: Token is not configured')
   }
 
   await backupAsync({ ...(defaultConfig as any), ...raw })
