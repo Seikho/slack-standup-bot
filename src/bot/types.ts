@@ -4,7 +4,8 @@ export interface Bot {
   postMessageToChannel(channel: string, text: string, params?: any): Promise<void>
   removeListener(event: string, func: Function): void
   on(event: string, callback: (data: any) => void): void
-  getUser(username: string): Promise<User>
+  getUser(username: string): Promise<User | undefined>
+  getUserId(id: string): Promise<User | undefined>
 
   token: string
   name: string
@@ -28,8 +29,9 @@ export interface Bot {
     over_storage_limit: boolean
     plan: string
     token: string
-    users: User[]
   }
+
+  users: User[]
 }
 
 export interface ChatIM {
