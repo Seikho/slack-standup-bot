@@ -18,6 +18,10 @@ register(
     }
 
     await setConfig('days', days)
-    await bot.postMessage(message.channel, 'Successfully updated standup days')
+    await bot.postMessage(
+      message.channel,
+      'Successfully updated standup days',
+      config.defaultParams
+    )
   }
 )
