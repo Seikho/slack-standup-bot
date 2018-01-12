@@ -68,10 +68,6 @@ export async function setConfig(key: string, value: any) {
   return newConfig
 }
 
-export async function toggleDays(days: number[]) {
-  await setConfig('days', days)
-}
-
 function restoreAsync() {
   return new Promise<db.Config>((resolve, reject) => {
     db.restore(DB_NAME, (err, raw) => {
