@@ -1,5 +1,5 @@
 import { register } from '../command'
-import { setConfig } from '../../config'
+import { getConfig, setConfig } from '../../config'
 
 register(
   'adduser',
@@ -44,7 +44,8 @@ register(
 )
 
 async function toggleUser(user: string, op: 'add' | 'del') {
-  const users = db.get('users') as string[]
+  const config = getConfig()
+  const users = config.users
 
   const exists = users.some(u => user === u)
   if (op === 'add') {
