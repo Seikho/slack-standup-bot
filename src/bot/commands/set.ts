@@ -5,6 +5,7 @@ const setableKeys = {
   botName: 'Bot display name. Default: `Standup Phteve`',
   botEmoji: 'Bot emoji. Must be a default emoji. Default: `:derpderp:`',
   botChannel: 'Standup channel. Default: `topic-standup`',
+  botTimezone: 'Timezone the bot should operate in. Default: `8`',
   standupTime: 'Standup time. 24hour format. Default: `09:00`',
   standupTimeout: 'Standup timeout in seconds. Default: `900` (15minutes)',
   standupCompleted: 'Manually reset the standupCompleted flag. E.g. `set standupCompleted false`',

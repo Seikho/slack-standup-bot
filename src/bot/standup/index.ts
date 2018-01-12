@@ -15,12 +15,13 @@ export async function start() {
     }
 
     // It's a new day! reset standupCompleted
-    if (Date.now() < standupDate.valueOf()) {
+    if (getNow() < standupDate) {
       await setConfig('standupCompleted', false)
     }
 
     // wait a few seconds, then check again
-    await sleep(10)
+    await sleep(1)
+    start()
   } catch (ex) {
     console.error(ex)
   }
@@ -43,7 +44,7 @@ async function performStandup() {
   const responses = users.map(user => sendStandup(bot, user))
 
   Promise.all(responses).then(async funcs => {
-    const startText = `Standup for *${new Date().toLocaleDateString('en-US', {
+    const startText = `Standup for *${getNow().toLocaleDateString('en-US', {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
@@ -82,7 +83,6 @@ async function getUsers() {
 async function waitForMessage(bot: Bot, text: string) {
   return new Promise<Message>((resolve, reject) => {
     const callback = (msg: Message) => {
-      console.log(msg)
       if (msg.subtype !== 'bot_message') {
         return
       }
@@ -119,7 +119,20 @@ function shouldStandup(standupDays: number[], date: Date, debug: boolean) {
     return true
   }
 
-  const isStandupDay = standupDays.includes(new Date().getDay())
-  const isStandupTime = Date.now() > date.valueOf()
+  const isStandupDay = standupDays.includes(getNow().getDay())
+  const isStandupTime = getNow() > date
   return isStandupDay && isStandupTime
+}
+
+function getNow() {
+  // Adjust for bot timezone
+  const config = getConfig()
+  const now = new Date()
+
+  const actualOffset = now.getTimezoneOffset()
+  const botOffset = config.botTimezone * 60 * -1
+  const adjustment = actualOffset - botOffset
+
+  now.setMinutes(now.getMinutes() + adjustment)
+  return now
 }

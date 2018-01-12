@@ -10,6 +10,7 @@ export interface Config {
   botName: string
   botEmoji: string
   botChannel: string
+  botTimezone: number
 
   users: string[]
 
@@ -90,11 +91,12 @@ const defaultConfig = {
   botName: 'Standup Phteve',
   botEmoji: ':derpderp:',
   botChannel: 'topic-standup',
+  botTimezone: 8,
   users: [],
   standupCompleted: true,
   standupTime: '09:00', // 24hour format
   standupDays: [1, 2, 3, 4, 5], // Monday to Friday
-  standupTimeout: 7200,
+  standupTimeout: 900,
   debug: false,
   log: false
 }
