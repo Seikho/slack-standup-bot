@@ -1,0 +1,33 @@
+{
+  "name": "slack-standup-bot",
+  "publishConfig": {
+    "//": "Do not publish",
+    "registry": "https://bad.registry"
+  },
+  "description": "Message Based Standups in Slack",
+  "version": "1.0.0",
+  "author": "Carl Winkler",
+  "bugs": {
+    "url": "https://github.com/seikho/slack-standup-bot/issues"
+  },
+  "dependencies": {
+    "slackbots": "^1.0.2",
+    "webscaledb": "^0.1.6"
+  },
+  "keywords": [],
+  "license": "MIT",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seikho/slack-standup-bot"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node src/index.js"
+  },
+  "devDependencies": {
+    "@types/node": "^9.3.0",
+    "prettier": "^1.10.2",
+    "typescript": "^2.6.2"
+  }
+}
