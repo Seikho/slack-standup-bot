@@ -68,29 +68,6 @@ export async function setConfig(key: string, value: any) {
   return newConfig
 }
 
-export async function toggleUser(user: string, op: 'add' | 'del') {
-  const users = db.get('users') as string[]
-
-  const exists = users.some(u => user === u)
-  if (op === 'add') {
-    if (exists) {
-      return
-    }
-    users.push(user)
-    await setConfig('users', users)
-    return
-  }
-
-  if (op === 'del') {
-    if (!exists) {
-      return
-    }
-
-    await setConfig('users', users.filter(u => user !== u))
-    return
-  }
-}
-
 export async function toggleDays(days: number[]) {
   await setConfig('days', days)
 }
