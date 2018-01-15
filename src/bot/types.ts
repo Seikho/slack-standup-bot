@@ -1,9 +1,9 @@
-export interface Bot {
+import { EventEmitter } from 'events'
+
+export declare class Bot extends EventEmitter {
   postMessage(id: string, text: string, params?: any): Promise<void>
   postMessageToUser(username: string, text: string, params?: any): Promise<void>
   postMessageToChannel(channel: string, text: string, params?: any): Promise<void>
-  removeListener(event: string, func: Function): void
-  on(event: string, callback: (data: any) => void): void
   getUser(username: string): Promise<User | undefined>
   getUserId(id: string): Promise<User | undefined>
 
