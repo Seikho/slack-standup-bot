@@ -1,5 +1,4 @@
 import { Bot, User, Message } from '../'
-import { sleep } from './util'
 import { getConfig } from '../../config'
 
 const questions = {
