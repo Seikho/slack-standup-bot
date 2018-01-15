@@ -17,7 +17,7 @@ export interface Config {
   standupCompleted: boolean
   standupTime: string
   standupDays: number[]
-  standupTimeout: 900 // 15 minutes
+  standupTimeout: number
 
   debug: boolean
   log: boolean
@@ -96,7 +96,7 @@ const defaultConfig = {
   standupCompleted: true,
   standupTime: '09:00', // 24hour format
   standupDays: [1, 2, 3, 4, 5], // Monday to Friday
-  standupTimeout: 900,
+  standupTimeout: 900, // 15 minutes
   debug: false,
   log: false
 }
