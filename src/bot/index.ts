@@ -14,7 +14,7 @@ export async function getBot(): Promise<Bot> {
   }
 
   const config = getConfig()
-  const bot = new SlackBot({ token: config.token, name: config.botName })
+  const bot = new SlackBot({ token: config.token, name: config.botName }) as Bot
   try {
     await waitTilReady(bot)
   } catch (ex) {
@@ -25,6 +25,7 @@ export async function getBot(): Promise<Bot> {
   listenForCommands(bot)
 
   bot.on('error', (err: any) => console.error(`SlackError: ${err.message || err}`))
+  bot.setMaxListeners(Infinity)
 
   _bot = bot
   return _bot
