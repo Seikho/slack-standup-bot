@@ -24,6 +24,8 @@ export async function dispatch(bot: Bot, msg: Message, text: string) {
     return
   }
 
+  const user = bot.users.find(user => user.id === msg.user)
+  console.log(`User: ${user!.name} | Cmd: ${cmd} | Params: ${params}`)
   listeners[cmd].callback(bot, msg, cfg, params)
 }
 
