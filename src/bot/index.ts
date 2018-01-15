@@ -23,6 +23,9 @@ export async function getBot(): Promise<Bot> {
   }
 
   listenForCommands(bot)
+
+  bot.on('error', (err: any) => console.error(`SlackError: ${err.message || err}`))
+
   _bot = bot
   return _bot
 }
