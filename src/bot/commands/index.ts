@@ -1,5 +1,6 @@
 import './help'
 import './set'
+import './get'
 import './user'
 import './now'
 import './days'

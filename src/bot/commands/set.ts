@@ -1,7 +1,7 @@
 import { register } from '../command'
 import { setConfig } from '../../config'
 
-const setableKeys = {
+export const setableKeys = {
   botName: 'Bot display name. Default: `Standup Phteve`',
   botEmoji: 'Bot emoji. Must be a default emoji. Default: `:derpderp:`',
   botChannel: 'Standup channel. Default: `topic-standup`',
