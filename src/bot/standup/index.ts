@@ -14,12 +14,11 @@ export async function start() {
       await performStandup()
     }
 
-    // It's a new day! reset standupCompleted
+    // If it's a new day, reset the standupCompleted flag
     if (getNow() < standupDate) {
       await setConfig('standupCompleted', false)
     }
 
-    // wait a few seconds, then check again
     await sleep(1)
     start()
   } catch (ex) {
@@ -38,25 +37,24 @@ async function performStandup() {
 
   // We want to reply to a message thread
   // We'll do that by replying to our own message
-  // There isn't a really trivial way to get a message ID except wait for it
+  // There isn't a really trivial way to get a message thread ID except wait for it
   await setConfig('standupCompleted', true)
+  const startText = `Standup for *${getNow().toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  })}*:`
 
-  const responses = users.map(user => sendStandup(bot, user))
+  bot.postMessageToChannel(config.botChannel, startText, config.defaultParams)
+  const msg = await waitForMessage(bot, startText)
 
-  Promise.all(responses).then(async funcs => {
-    const startText = `Standup for *${getNow().toLocaleDateString('en-US', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    })}*:`
-    bot.postMessageToChannel(config.botChannel, startText, config.defaultParams)
-    const msg = await waitForMessage(bot, startText)
-
-    for (const func of funcs) {
-      await func(msg.ts)
-    }
-  })
+  for (const user of users) {
+    // We want to make sure we don't exceed Slack API limits
+    // We will wait a second or two between each message
+    sendStandup(bot, user).then(cb => cb(msg.ts))
+    await sleep(1.5)
+  }
 }
 
 async function getUsers() {
