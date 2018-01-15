@@ -12,18 +12,20 @@ const questions = {
 export async function sendStandup(bot: Bot, user: User) {
   const config = getConfig()
   const timeout = config.debug ? 60 : config.standupTimeout
-
-  const params = { ...config.defaultParams }
+  const params = config.defaultParams
 
   try {
+    const now = Date.now()
+    const getTimeout = () => timeout - (Date.now() - now)
+
     await bot.postMessageToUser(user.name, questions.yesterday, params)
-    const yesterday = await readMessage(bot, user, timeout)
+    const yesterday = await readMessage(bot, user, getTimeout())
 
     await bot.postMessageToUser(user.name, questions.today, params)
-    const today = await readMessage(bot, user, timeout)
+    const today = await readMessage(bot, user, getTimeout())
 
     await bot.postMessageToUser(user.name, questions.blockers, params)
-    const blockers = await readMessage(bot, user, timeout)
+    const blockers = await readMessage(bot, user, getTimeout())
 
     const doneText = 'Happy hacking!'
     await bot.postMessageToUser(user.name, doneText, params)
@@ -43,12 +45,14 @@ export async function sendStandup(bot: Bot, user: User) {
         username: user.real_name,
         icon_url: user.profile.image_48
       })
-  } catch (e) {
-    bot.postMessageToUser(user.name, `Your standup has been canceled due to inactivity`, params)
-    bot.postMessageToChannel(config.botChannel, `*${user.name}* missed today's standup`, params)
-    return (_: number) => {
-      /** Intentional NOOP */
-    }
+  } catch (_) {
+    bot.postMessageToUser(user.name, `Your standup has been cancelled due to inactivity`, params)
+    return (thread: number) =>
+      bot.postMessageToChannel(config.botChannel, `> *Missed standup today*`, {
+        thread_ts: thread,
+        username: user.real_name,
+        icon_url: user.profile.image_48
+      })
   }
 }
 
