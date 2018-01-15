@@ -11,7 +11,7 @@ const questions = {
 // ask the standup questions
 export async function sendStandup(bot: Bot, user: User) {
   const config = getConfig()
-  const timeout = config.debug ? 60 : config.standupTimeout
+  const timeout = (config.debug ? 60 : config.standupTimeout) * 1000
   const params = config.defaultParams
 
   try {
@@ -64,8 +64,13 @@ function parseResponse(text: string) {
 }
 
 // Read a message from the user, and return the text
-function readMessage(bot: Bot, user: User, timeout = 3600): Promise<string> {
+function readMessage(bot: Bot, user: User, timeoutMs: number): Promise<string> {
   return new Promise<string>((resolve, reject) => {
+    const timer = setTimeout(() => {
+      reject()
+      bot.removeListener('message', callback)
+    }, timeoutMs)
+
     const callback = async (data: Message) => {
       const channel = data.channel || ''
       const text = (data.text || '').trim()
@@ -75,12 +80,9 @@ function readMessage(bot: Bot, user: User, timeout = 3600): Promise<string> {
       if (isDirect && !isCommand && data.user === user.id) {
         bot.removeListener('message', callback)
         resolve(parseResponse(data.text))
+        clearTimeout(timer)
         return
       }
-
-      await sleep(timeout)
-      bot.removeListener('message', callback)
-      reject()
     }
 
     bot.on('message', callback)
