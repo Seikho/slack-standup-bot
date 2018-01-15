@@ -64,8 +64,11 @@ function readMessage(bot: Bot, user: User, timeout = 3600): Promise<string> {
   return new Promise<string>((resolve, reject) => {
     const callback = async (data: Message) => {
       const channel = data.channel || ''
+      const text = (data.text || '').trim()
       const isDirect = data.type === 'message' && channel.startsWith('D')
-      if (isDirect && data.user === user.id) {
+      const isCommand = data.type === 'message' && text.startsWith(`<@${bot.self.id}>`)
+
+      if (isDirect && !isCommand && data.user === user.id) {
         bot.removeListener('message', callback)
         resolve(parseResponse(data.text))
         return
