@@ -2,9 +2,21 @@
 # yarn lockfile v1
 
 
-"@types/node@^9.3.0":
+"@types/needle@^2.0.2":
+  version "2.0.2"
+  resolved "https://nexus.swmdigital.io/repository/js-combined/@types/needle/-/needle-2.0.2.tgz#c7e908d8990b964ffc1e91b0c5022c7d85ba2ac0"
+  dependencies:
+    "@types/node" "*"
+
+"@types/node@*", "@types/node@^9.3.0":
   version "9.3.0"
   resolved "https://nexus.swmdigital.io/repository/js-combined/@types/node/-/node-9.3.0.tgz#3a129cda7c4e5df2409702626892cb4b96546dd5"
+
+"@types/ws@^3.2.1":
+  version "3.2.1"
+  resolved "https://nexus.swmdigital.io/repository/js-combined/@types/ws/-/ws-3.2.1.tgz#b0c1579e58e686f83ce0a97bb9463d29705827fb"
+  dependencies:
+    "@types/node" "*"
 
 async-limiter@~1.0.0:
   version "1.0.0"
@@ -39,10 +51,12 @@ safe-buffer@~5.1.0:
   version "5.1.1"
   resolved "https://nexus.swmdigital.io/repository/js-combined/safe-buffer/-/safe-buffer-5.1.1.tgz#893312af69b2123def71f57889001671eeb2c853"
 
-slacklib@^1.0.0:
-  version "1.0.0"
-  resolved "https://nexus.swmdigital.io/repository/js-combined/slacklib/-/slacklib-1.0.0.tgz#74f0f6824eae1bacfcc7c826549c57b1be4d226e"
+slacklib@^1.0.2:
+  version "1.0.2"
+  resolved "https://nexus.swmdigital.io/repository/js-combined/slacklib/-/slacklib-1.0.2.tgz#81654e7dc2c78f65a9781c629100fab012098fe8"
   dependencies:
+    "@types/needle" "^2.0.2"
+    "@types/ws" "^3.2.1"
     needle "^2.1.0"
     ws "^4.0.0"
 
