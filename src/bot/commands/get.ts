@@ -6,18 +6,18 @@ register('get', `Get the value of a configuration key`, async (bot, message, con
   const key = params[0]
   if (key in setableKeys) {
     const value = (getConfig() as any)[key]
-    bot.postMessage(
-      message.channel,
-      `*${key}*: \`${JSON.stringify(value, null, 2)}\``,
-      config.defaultParams
-    )
+    bot.postMessage({
+      channel: message.channel,
+      text: `*${key}*: \`${JSON.stringify(value, null, 2)}\``,
+      ...config.defaultParams
+    })
     return
   }
 
   const availableKeys = Object.keys(setableKeys).join(', ')
-  await bot.postMessage(
-    message.channel,
-    `Invalid configuration key. Available keys: ${availableKeys}`,
-    config.defaultParams
-  )
+  await bot.postMessage({
+    channel: message.channel,
+    text: `Invalid configuration key. Available keys: ${availableKeys}`,
+    ...config.defaultParams
+  })
 })

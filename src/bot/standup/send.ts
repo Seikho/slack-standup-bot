@@ -1,5 +1,5 @@
-import { Bot, User, Message } from '../'
 import { getConfig } from '../../config'
+import { SlackClient, Users, Chat } from 'slacklib'
 
 const questions = {
   yesterday: 'What did you do yesterday?',
@@ -7,8 +7,7 @@ const questions = {
   blockers: 'Do you have any blockers?'
 }
 
-// ask the standup questions
-export async function sendStandup(bot: Bot, user: User) {
+export async function sendStandup(bot: SlackClient, user: Users.User) {
   const config = getConfig()
   const timeout = (config.debug ? 60 : config.standupTimeout) * 1000
   const params = config.defaultParams
@@ -17,17 +16,17 @@ export async function sendStandup(bot: Bot, user: User) {
     const now = Date.now()
     const getTimeout = () => timeout - (Date.now() - now)
 
-    await bot.postMessageToUser(user.name, questions.yesterday, params)
+    await bot.directMessage(user.id, { text: questions.yesterday, ...params })
     const yesterday = await readMessage(bot, user, getTimeout())
 
-    await bot.postMessageToUser(user.name, questions.today, params)
+    await bot.directMessage(user.id, { text: questions.today, ...params })
     const today = await readMessage(bot, user, getTimeout())
 
-    await bot.postMessageToUser(user.name, questions.blockers, params)
+    await bot.directMessage(user.id, { text: questions.blockers, ...params })
     const blockers = await readMessage(bot, user, getTimeout())
 
     const doneText = 'Happy hacking!'
-    await bot.postMessageToUser(user.name, doneText, params)
+    await bot.directMessage(user.id, { text: doneText, ...params })
 
     const standupMsgs: string[] = [
       `*${questions.yesterday}*`,
@@ -39,18 +38,28 @@ export async function sendStandup(bot: Bot, user: User) {
     ]
 
     return (thread: number) =>
-      bot.postMessageToChannel(config.botChannel, standupMsgs.join('\n'), {
+      bot.postMessage({
+        channel: config.botChannel,
+        text: standupMsgs.join('\n'),
         thread_ts: thread,
         username: user.real_name,
-        icon_url: user.profile.image_48
+        icon_url: user.profile.image_48,
+        as_user: false
       })
   } catch (_) {
-    bot.postMessageToUser(user.name, `Your standup has been cancelled due to inactivity`, params)
+    bot.postMessage({
+      channe: user.name,
+      text: `Your standup has been cancelled due to inactivity`,
+      ...params
+    })
     return (thread: number) =>
-      bot.postMessageToChannel(config.botChannel, `> *Missed standup today*`, {
+      bot.postMessage({
+        channel: config.botChannel,
+        text: `> *Missed standup today*`,
         thread_ts: thread,
         username: user.real_name,
-        icon_url: user.profile.image_48
+        icon_url: user.profile.image_48,
+        as_user: false
       })
   }
 }
@@ -63,14 +72,14 @@ function parseResponse(text: string) {
 }
 
 // Read a message from the user, and return the text
-function readMessage(bot: Bot, user: User, timeoutMs: number): Promise<string> {
+function readMessage(bot: SlackClient, user: Users.User, timeoutMs: number): Promise<string> {
   return new Promise<string>((resolve, reject) => {
     const timer = setTimeout(() => {
       reject()
       bot.removeListener('message', callback)
     }, timeoutMs)
 
-    const callback = async (data: Message) => {
+    const callback = async (data: Chat.Message) => {
       const channel = data.channel || ''
       const text = (data.text || '').trim()
       const isDirect = data.type === 'message' && channel.startsWith('D')

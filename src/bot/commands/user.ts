@@ -1,6 +1,6 @@
-import { Bot } from '../'
 import { register } from '../command'
 import { getConfig, setConfig } from '../../config'
+import { SlackClient } from 'slacklib'
 
 register(
   'adduser',
@@ -28,7 +28,7 @@ register(
       lines.push(`:rotating_light: Failed to add "${bad.join(', ')}" to standup :rotating_light:`)
     }
 
-    await bot.postMessage(msg.channel, lines.join('\n'), cfg.defaultParams)
+    await bot.postMessage({ channel: msg.channel, text: lines.join('\n'), ...cfg.defaultParams })
   }
 )
 
@@ -60,11 +60,11 @@ register(
       )
     }
 
-    await bot.postMessage(msg.channel, lines.join('\n'), cfg.defaultParams)
+    await bot.postMessage({ channel: msg.channel, text: lines.join('\n'), ...cfg.defaultParams })
   }
 )
 
-function getUser(bot: Bot, username: string) {
+function getUser(bot: SlackClient, username: string) {
   const id = username.startsWith('<') ? username.slice(2, -1) : username
   for (const user of bot.users) {
     if (user.id === id || user.name === username) {

@@ -1,20 +1,16 @@
 import { getConfig } from '../config'
-import { Bot, Message } from './types'
 import { dispatch } from './command'
-
-const SlackBot = require('slackbots')
-
-export * from './types'
+import { SlackClient, Chat } from 'slacklib'
 
 let _bot: any = null
 
-export async function getBot(): Promise<Bot> {
+export async function getBot(): Promise<SlackClient> {
   if (_bot) {
     return _bot
   }
 
   const config = getConfig()
-  const bot = new SlackBot({ token: config.token, name: config.botName }) as Bot
+  const bot = new SlackClient({ token: config.token })
   try {
     await waitTilReady(bot)
   } catch (ex) {
@@ -31,10 +27,10 @@ export async function getBot(): Promise<Bot> {
   return _bot
 }
 
-function listenForCommands(bot: Bot) {
+function listenForCommands(bot: SlackClient) {
   const id = `<@${bot.self.id}>`
 
-  bot.on('message', (data: Message) => {
+  bot.on('message', (data: Chat.Message) => {
     if (!data.text) {
       return
     }
@@ -48,7 +44,7 @@ function listenForCommands(bot: Bot) {
   })
 }
 
-function waitTilReady(bot: Bot) {
+function waitTilReady(bot: SlackClient) {
   return new Promise((resolve, reject) => {
     const timer = setTimeout(() => reject(), 5000)
     const cb = (data: any) => {
@@ -57,6 +53,6 @@ function waitTilReady(bot: Bot) {
       resolve()
     }
 
-    bot.on('start', cb)
+    bot.on('connected', cb)
   })
 }

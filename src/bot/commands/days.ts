@@ -9,19 +9,19 @@ register(
 
     const allDaysValid = days.every(day => day >= 1 && day <= 7)
     if (!allDaysValid) {
-      await bot.postMessage(
-        message.channel,
-        `Invalid days specified. Valid days are 1 -> 7`,
-        config.defaultParams
-      )
+      await bot.postMessage({
+        channel: message.channel,
+        text: `Invalid days specified. Valid days are 1 -> 7`,
+        ...config.defaultParams
+      })
       return
     }
 
     await setConfig('days', days)
-    await bot.postMessage(
-      message.channel,
-      'Successfully updated standup days',
-      config.defaultParams
-    )
+    await bot.postMessage({
+      channel: message.channel,
+      text: 'Successfully updated standup days',
+      ...config.defaultParams
+    })
   }
 )

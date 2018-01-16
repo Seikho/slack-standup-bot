@@ -50,7 +50,10 @@ function parseConfig(rawConfig: db.Config) {
   const cfg = rawConfig as Config
 
   const config = { ...defaultConfig, ...cfg }
-  return { ...config, defaultParams: { icon_emoji: config.botEmoji, username: config.botName } }
+  return {
+    ...config,
+    defaultParams: { icon_emoji: config.botEmoji, username: config.botName, as_user: false }
+  }
 }
 
 export async function setConfig(key: string, value: any) {

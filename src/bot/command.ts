@@ -1,9 +1,9 @@
-import { Bot, Message } from './types'
 import { getConfig, Config } from '../config'
+import { SlackClient, Chat } from 'slacklib'
 
 export type CommandListener = {
   desc: string
-  callback: (bot: Bot, message: Message, config: Config, params: string[]) => void
+  callback: (bot: SlackClient, message: Chat.Message, config: Config, params: string[]) => void
 }
 
 const listeners: { [command: string]: CommandListener } = {}
@@ -12,15 +12,15 @@ export function register(command: string, desc: string, callback: CommandListene
   listeners[command] = { desc, callback }
 }
 
-export async function dispatch(bot: Bot, msg: Message, text: string) {
+export async function dispatch(bot: SlackClient, msg: Chat.Message, text: string) {
   const cfg = getConfig()
   const [cmd, ...params] = text.trim().split(' ')
   if (!listeners[cmd]) {
-    await bot.postMessage(
-      msg.channel,
-      `Unrecognized command: *${cmd}*. Type @${bot.self.name} help for more information.`,
-      cfg.defaultParams
-    )
+    await bot.postMessage({
+      channel: msg.channel,
+      text: `Unrecognized command: *${cmd}*. Type @${bot.self.name} help for more information.`,
+      ...cfg.defaultParams
+    })
     return
   }
 

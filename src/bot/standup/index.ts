@@ -1,7 +1,8 @@
-import { getBot, User, Message, Bot } from '../'
+import { getBot } from '../'
 import { getConfig, setConfig } from '../../config'
 import { sendStandup } from './send'
 import { sleep } from './util'
+import { Chat, Users, SlackClient } from 'slacklib'
 
 export async function start() {
   try {
@@ -47,7 +48,7 @@ async function performStandup() {
     day: 'numeric'
   })}*:`
 
-  bot.postMessageToChannel(config.botChannel, startText, config.defaultParams)
+  bot.postMessage({ channel: config.botChannel, text: startText, ...config.defaultParams })
   const msg = await waitForMessage(bot, startText)
 
   for (const user of users) {
@@ -59,7 +60,7 @@ async function performStandup() {
 }
 
 async function getUsers() {
-  const users: User[] = []
+  const users: Users.User[] = []
   const config = getConfig()
   const bot = await getBot()
 
@@ -79,10 +80,10 @@ async function getUsers() {
   return users
 }
 
-async function waitForMessage(bot: Bot, text: string) {
-  return new Promise<Message>((resolve, reject) => {
-    const callback = (msg: Message) => {
-      if (msg.subtype !== 'bot_message') {
+async function waitForMessage(bot: SlackClient, text: string) {
+  return new Promise<Chat.Message>((resolve, reject) => {
+    const callback = (msg: Chat.Message) => {
+      if (msg.subtype !== 'bot_message' && msg.user !== bot.self.id) {
         return
       }
 

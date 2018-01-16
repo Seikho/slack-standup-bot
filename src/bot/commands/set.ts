@@ -24,23 +24,27 @@ register(
     const value = values.join(' ')
 
     if (!key || !value) {
-      await bot.postMessage(message.channel, getHelpMessage(), config.defaultParams)
+      await bot.postMessage({
+        channel: message.channel,
+        text: getHelpMessage(),
+        ...config.defaultParams
+      })
       return
     }
 
     try {
       const newConfig = await setConfig(key, value)
-      await bot.postMessage(
-        message.channel,
-        `Successfully updated *${key}*`,
-        newConfig.defaultParams
-      )
+      await bot.postMessage({
+        channel: message.channel,
+        text: `Successfully updated *${key}*`,
+        ...newConfig.defaultParams
+      })
     } catch (ex) {
-      await bot.postMessage(
-        message.channel,
-        `${ex.message}\n${getHelpMessage()}`,
-        config.defaultParams
-      )
+      await bot.postMessage({
+        channel: message.channel,
+        text: `${ex.message}\n${getHelpMessage()}`,
+        ...config.defaultParams
+      })
     }
   }
 )
