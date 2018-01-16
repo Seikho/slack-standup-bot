@@ -39,8 +39,9 @@ safe-buffer@~5.1.0:
   version "5.1.1"
   resolved "https://nexus.swmdigital.io/repository/js-combined/safe-buffer/-/safe-buffer-5.1.1.tgz#893312af69b2123def71f57889001671eeb2c853"
 
-slacklib@../slacklib:
+slacklib@^1.0.0:
   version "1.0.0"
+  resolved "https://nexus.swmdigital.io/repository/js-combined/slacklib/-/slacklib-1.0.0.tgz#74f0f6824eae1bacfcc7c826549c57b1be4d226e"
   dependencies:
     needle "^2.1.0"
     ws "^4.0.0"
