@@ -4,7 +4,12 @@ import { setableKeys } from './set'
 
 register('get', `Get the value of a configuration key`, async (bot, message, config, params) => {
   const key = params[0]
-  if (key in setableKeys) {
+
+  const availableKeys = Object.keys(setableKeys)
+    .join(', ')
+    .concat('users')
+
+  if (availableKeys.includes(key)) {
     const value = (getConfig() as any)[key]
     bot.postMessage({
       channel: message.channel,
@@ -13,10 +18,6 @@ register('get', `Get the value of a configuration key`, async (bot, message, con
     })
     return
   }
-
-  const availableKeys = Object.keys(setableKeys)
-    .join(', ')
-    .concat('users')
 
   await bot.postMessage({
     channel: message.channel,
