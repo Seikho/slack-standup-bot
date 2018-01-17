@@ -4,7 +4,9 @@ LABEL description "Slack Standup Bot"
 
 WORKDIR /code
 
-ENV SLACK_TOKEN="xoxb-1234567890-abcdefghjkl"
+ENV SLACK_TOKEN=""
+
+VOLUME [ "/code/database" ]
 
 COPY package.json /code
 COPY yarn.lock /code

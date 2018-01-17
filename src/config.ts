@@ -2,7 +2,7 @@ import * as db from 'webscaledb'
 import * as path from 'path'
 import * as fs from 'fs'
 
-const DB_NAME = path.join(__dirname, '..', 'config.json')
+const DB_NAME = path.join(__dirname, '..', 'database', 'config.json')
 
 export interface Config {
   token: string
