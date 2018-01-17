@@ -47,8 +47,7 @@ export async function sendStandup(bot: SlackClient, user: Users.User) {
         as_user: false
       })
   } catch (_) {
-    bot.postMessage({
-      channe: user.name,
+    bot.directMessage(user.id, {
       text: `Your standup has been cancelled due to inactivity`,
       ...params
     })
