@@ -23,11 +23,13 @@
   },
   "scripts": {
     "build": "tsc",
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "clean": "rimraf ./src/**/*.js ./src/**/*.js.map"
   },
   "devDependencies": {
     "@types/node": "^9.3.0",
     "prettier": "^1.10.2",
+    "rimraf": "^2.6.2",
     "typescript": "^2.6.2"
   }
 }
