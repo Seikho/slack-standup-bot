@@ -17,7 +17,7 @@ register(
       return
     }
 
-    await setConfig('days', days)
+    await setConfig('standupDays', days)
     await bot.postMessage({
       channel: message.channel,
       text: 'Successfully updated standup days',

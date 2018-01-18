@@ -12,7 +12,8 @@ export const setableKeys = {
   debug: 'Enable debug mode. Default: `false`'
 }
 
-const keys = Object.keys(setableKeys)
+type ValidKey = keyof typeof setableKeys
+const keys = Object.keys(setableKeys) as ValidKey[]
 
 register(
   'set',
@@ -20,7 +21,8 @@ register(
     ', '
   )}.\n Usage: set [key] [...value].\n For info on the keys, use \`help\` with no parameters.`,
   async (bot, message, config, params) => {
-    const [key, ...values] = params
+    const key = params[0] as ValidKey
+    const values = params.slice(1)
     const value = values.join(' ')
 
     if (!key || !value) {
@@ -32,7 +34,7 @@ register(
       return
     }
 
-    if (!keys.includes(key)) {
+    if (key in setableKeys === false) {
       await bot.postMessage({
         channel: message.channel,
         text: `Invalid configuration key.\n${getHelpMessage()}`,

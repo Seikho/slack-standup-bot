@@ -56,7 +56,7 @@ function parseConfig(rawConfig: db.Config) {
   }
 }
 
-export async function setConfig(key: string, value: any) {
+export async function setConfig(key: keyof typeof defaultConfig, value: any) {
   const originalValue = db.get(key)
   const parseReqd = typeof originalValue !== 'string' && typeof value === 'string'
   const valueToStore = parseReqd ? JSON.parse(value) : value
