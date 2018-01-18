@@ -121,7 +121,6 @@ function shouldStandup(standupDays: number[], date: Date, debug: boolean) {
 
   const isStandupDay = standupDays.includes(getNow().getDay())
   const isStandupTime = getNow() > date
-  console.log({ isStandupDay, isStandupTime })
   return isStandupDay && isStandupTime
 }
 
