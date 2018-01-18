@@ -63,10 +63,7 @@ register(
 register('get', `Get the value of a configuration key`, async (bot, message, config, params) => {
   const key = params[0]
 
-  const availableKeys = Object.keys(setableKeys)
-    .join(', ')
-    .concat('users')
-
+  const availableKeys = Object.keys(setableKeys).concat('users')
   if (availableKeys.includes(key)) {
     const value = (getConfig() as any)[key]
     bot.postMessage({
