@@ -114,18 +114,29 @@ function toDate(time: string) {
   return date
 }
 
-function shouldStandup(standupDays: number[], date: Date, debug: boolean) {
+function shouldStandup(standupDays: number[], standupDate: Date, debug: boolean) {
   if (debug) {
     return true
   }
 
-  const isStandupDay = standupDays.includes(getNow().getDay())
-  const isStandupTime = getNow() > date
-  return isStandupDay && isStandupTime
+  const adjustedNow = getNow()
+
+  // We check 'isSameDay' as timezone offsets can create a scenario where:
+  // adjustedNow vs standupDate are on different days
+  const isSameDay = adjustedNow.getDay() === standupDate.getDay()
+
+  // Must check the standupDate instead of 'now' because 'now' is adjusted for the user timezone
+  // This can be adjusted into a new day which could be a standupDay and lead to a type I error (false positive)
+  const isStandupDay = standupDays.includes(standupDate.getDay())
+
+  const isStandupTime = getNow() > standupDate
+  return isSameDay && isStandupDay && isStandupTime
 }
 
+/**
+ * Returns 'now' adjusted for the user's timezone
+ */
 function getNow() {
-  // Adjust for bot timezone
   const config = getConfig()
   const now = new Date()
 
