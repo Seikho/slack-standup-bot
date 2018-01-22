@@ -65,10 +65,10 @@ register('get', `Get the value of a configuration key`, async (bot, message, con
 
   const availableKeys = Object.keys(setableKeys).concat('users', 'standupDays')
   if (availableKeys.includes(key)) {
-    const value = (getConfig() as any)[key]
+    const value = JSON.stringify((getConfig() as any)[key], null, 2)
     bot.postMessage({
       channel: message.channel,
-      text: `*${key}*: \`${JSON.stringify(value, null, 2)}\``,
+      text: `*${key}*:\n\`\`\`\n${value}\n\`\`\``,
       ...config.defaultParams
     })
     return
