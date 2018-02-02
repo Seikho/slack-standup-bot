@@ -1,4 +1,4 @@
-# Slack Standup Bot
+# Slack Serentiy Bot
 
 ## Getting Started
 
@@ -8,7 +8,7 @@ In Slack:
 - Invite the bot to a channel in Slack
 
 ```sh
-> git clone https://github.com/seikho/slack-standup && cd slack-standup
+> git clone https://github.com/bennettp123/slack-serenity-bot && cd slack-serenity
 
 # From the command line:
 > yarn
@@ -17,7 +17,7 @@ In Slack:
 
 # Using Docker:
 > docker build -t standup .
-> docker run -dt --env SLACK_TOKEN={API TOKEN} --name standupbot --restart=always standup
+> docker run -dt --env SLACK_TOKEN={API TOKEN} --name serenitybot --restart=always serenity
 ```
 
 
