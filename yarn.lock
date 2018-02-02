@@ -120,16 +120,16 @@ safe-buffer@~5.1.0:
 
 "slacklib@https://github.com/bennettp123/slacklib.git":
   version "1.0.3"
-  resolved "https://github.com/bennettp123/slacklib.git#64a1ed320b271abb18a89dcaced5e8f4dea032d2"
+  resolved "https://github.com/bennettp123/slacklib.git#8eeb4fe6a51a9b2d856bed102cff7c313d95a902"
   dependencies:
     "@types/needle" "^2.0.2"
     "@types/ws" "^3.2.1"
     needle "^2.1.0"
     ws "^4.0.0"
 
-typescript@^2.6.2:
+typescript@2.6.2:
   version "2.6.2"
-  resolved "https://nexus.swmdigital.io/repository/js-combined/typescript/-/typescript-2.6.2.tgz#3c5b6fd7f6de0914269027f03c0946758f7673a4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.6.2.tgz#3c5b6fd7f6de0914269027f03c0946758f7673a4"
 
 ultron@~1.1.0:
   version "1.1.1"

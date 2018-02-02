@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "slacklib": "https://github.com/bennettp123/slacklib.git",
+    "typescript": "2.6.2",
     "webscaledb": "^0.1.6"
   },
   "keywords": [],
@@ -29,7 +30,6 @@
   "devDependencies": {
     "@types/node": "^9.3.0",
     "prettier": "^1.10.2",
-    "rimraf": "^2.6.2",
-    "typescript": "^2.6.2"
+    "rimraf": "^2.6.2"
   }
 }
