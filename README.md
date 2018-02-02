@@ -16,7 +16,7 @@ In Slack:
 > export SLACK_TOKEN={API TOKEN} yarn start
 
 # Using Docker:
-> docker build -t standup .
+> docker build -t serenity .
 > docker run -dt --env SLACK_TOKEN={API TOKEN} --name serenitybot --restart=always serenity
 ```
 
