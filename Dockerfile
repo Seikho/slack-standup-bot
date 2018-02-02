@@ -21,5 +21,4 @@ COPY src /code/src
 
 RUN yarn build
 
-
 CMD node src/index.js

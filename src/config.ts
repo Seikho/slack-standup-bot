@@ -22,8 +22,12 @@ export interface Config {
   incidentName: string
   incidentId: string
   incidentSeverity: string
+
   jiraUsername: string
   jiraPassword: string
+
+  confluenceUsername: string
+  confluencePassword: string
 
   debug: boolean
   log: boolean
@@ -108,7 +112,7 @@ const defaultConfig = {
   standupTimeout: 900, // 15 minutes
   debug: false,
   log: false,
-  incidentName: "",
-  incidentId: "",
-  incidentSeverity: ""
+  incidentName: '',
+  incidentId: '',
+  incidentSeverity: ''
 }
