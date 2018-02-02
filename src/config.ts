@@ -19,8 +19,13 @@ export interface Config {
   standupDays: number[]
   standupTimeout: number
 
+<<<<<<< HEAD
   incidentName: string
   incidentId: string
+=======
+  jiraUsername: string
+  jiraPassword: string
+>>>>>>> Added 'raise' action with JIRA ticket deluxe power insert
 
   debug: boolean
   log: boolean
