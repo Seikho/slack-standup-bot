@@ -11,7 +11,7 @@
     "url": "https://github.com/bennettp123/slack-serenity-bot/issues"
   },
   "dependencies": {
-    "slacklib": "^1.0.2",
+    "slacklib": "https://github.com/bennettp123/slacklib.git",
     "webscaledb": "^0.1.6"
   },
   "keywords": [],
