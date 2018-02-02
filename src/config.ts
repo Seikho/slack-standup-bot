@@ -19,6 +19,9 @@ export interface Config {
   standupDays: number[]
   standupTimeout: number
 
+  incidentName: string
+  incidentId: string
+
   debug: boolean
   log: boolean
   defaultParams: any
@@ -91,9 +94,9 @@ function backupAsync(cfg?: Config) {
 }
 
 const defaultConfig = {
-  botName: 'Standup Phteve',
-  botEmoji: ':derpderp:',
-  botChannel: 'topic-standup',
+  botName: 'SerenityBot',
+  botEmoji: ':derp_cry:',
+  botChannel: 'serenity-testing',
   botTimezone: 8,
   users: [],
   standupCompleted: true,
@@ -101,5 +104,7 @@ const defaultConfig = {
   standupDays: [1, 2, 3, 4, 5], // Monday to Friday
   standupTimeout: 900, // 15 minutes
   debug: false,
-  log: false
+  log: false,
+  incidentName: "",
+  incidentId: ""
 }

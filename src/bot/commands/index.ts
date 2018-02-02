@@ -1,6 +1,3 @@
 import './help'
-import './config'
-import './user'
-import './now'
-import './days'
-import './standup'
+import './uh-oh'
+import './severity'
