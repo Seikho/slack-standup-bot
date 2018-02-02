@@ -15,7 +15,10 @@ export function register(command: string, desc: string, callback: CommandListene
 export async function dispatch(bot: SlackClient, msg: Chat.Message, text: string) {
   const cfg = getConfig()
   const [cmd, ...params] = text.trim().split(' ')
-  if (!listeners[cmd]) {
+  if (text == "") {
+    await dispatch(bot, msg, "incident-help")
+  }
+  else if (!listeners[cmd]) {
     await bot.postMessage({
       channel: msg.channel,
       text: `Unrecognized command: *${cmd}*. Type @${bot.self.name} help for more information.`,
@@ -33,3 +36,4 @@ export function getDescriptions() {
   const commands = Object.keys(listeners).map(key => ({ command: key, desc: listeners[key].desc }))
   return commands
 }
+
