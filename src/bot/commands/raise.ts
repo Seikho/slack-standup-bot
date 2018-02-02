@@ -3,6 +3,33 @@ import { default as fetch } from 'node-fetch'
 import { Config } from '../../config'
 import { Buffer } from 'buffer'
 
+const roles: any = {}
+
+register('assign', 'Assign a role', async (bot, message, config, params) => {
+  const assignee = params[0]
+  const role = params.slice(-2).join(' ')
+  roles[role] = assignee
+
+  await bot.postMessage({
+    channel: message.channel,
+    text: `${assignee} has been assigned to the ${role} role`,
+    ...config.defaultParams
+  })
+})
+
+register('roles', 'List assigned roles', async (bot, message, config, params) => {
+  let msg = `The following roles are assigned:\n`
+  for (var role in roles) {
+    msg = msg + `${role}: ${roles[role]}\n`
+  }
+
+  await bot.postMessage({
+    channel: message.channel,
+    text: msg,
+    ...config.defaultParams
+  })
+})
+
 register('raise', `Raise an incident record in JIRA`, async (bot, message, config, params) => {
   await bot.postMessage({
     channel: message.channel,
