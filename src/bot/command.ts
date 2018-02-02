@@ -16,7 +16,7 @@ export async function dispatch(bot: SlackClient, msg: Chat.Message, text: string
   const cfg = getConfig()
   const [cmd, ...params] = text.trim().split(' ')
   if (text == "") {
-    await dispatch(bot, msg, "incident-help")
+    await dispatch(bot, msg, "first")
   }
   else if (!listeners[cmd]) {
     await bot.postMessage({

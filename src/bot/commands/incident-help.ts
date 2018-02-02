@@ -1,7 +1,8 @@
 import { register } from '../command'
 import { sleep } from '../standup/util'
 
-register('incident-help', `Show quick help for first responders`, async (bot, message, config, params) => {
+
+register('first', `Show quick help for first responders`, async (bot, message, config, params) => {
   
   const helpMessage = `
 
@@ -57,3 +58,50 @@ This will create a jira ticket and confluence doc.
     ...config.defaultParams
   })  
 })
+
+
+register('command-help', `Show quick help for incident command`, async (bot, message, config, params) => {
+  const helpMessage = `https://confluence.swmdigital.io/display/DPT/Incident+Command`
+  bot.postMessage({
+    channel: message.channel,
+    text: helpMessage,
+    ...config.defaultParams
+  })
+})
+
+register('comms-help', `Show quick help for the communications officer`, async (bot, message, config, params) => {
+  const helpMessage = `https://confluence.swmdigital.io/display/DPT/Communications+officer`
+  bot.postMessage({
+    channel: message.channel,
+    text: helpMessage,
+    ...config.defaultParams
+  })
+})
+
+register('point-help', `Show quick help for point`, async (bot, message, config, params) => {
+  const helpMessage = `https://confluence.swmdigital.io/display/DPT/Point`
+  bot.postMessage({
+    channel: message.channel,
+    text: helpMessage,
+    ...config.defaultParams
+  })
+})
+
+register('recon-help', `Show quick help for recon`, async (bot, message, config, params) => {
+  const helpMessage = `https://confluence.swmdigital.io/display/DPT/Recon`
+  bot.postMessage({
+    channel: message.channel,
+    text: helpMessage,
+    ...config.defaultParams
+  })
+})
+
+register('transtion-help', `Show quick help for incident command`, async (bot, message, config, params) => {
+  const helpMessage = `https://confluence.swmdigital.io/display/DPT/Transition+officer`
+  bot.postMessage({
+    channel: message.channel,
+    text: helpMessage,
+    ...config.defaultParams
+  })
+})
+
