@@ -1,7 +1,7 @@
 import { register } from '../command'
 import { sleep } from '../standup/util'
 
-register('incident-help', `View this message`, async (bot, message, config, params) => {
+register('incident-help', `Show quick help for first responders`, async (bot, message, config, params) => {
   
   const helpMessage = `
 
