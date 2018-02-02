@@ -106,5 +106,6 @@ const defaultConfig = {
   debug: false,
   log: false,
   incidentName: "",
-  incidentId: ""
+  incidentId: "",
+  incidentSeverity: ""
 }

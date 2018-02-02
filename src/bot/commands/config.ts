@@ -6,9 +6,9 @@ export const setableKeys = {
   botEmoji: 'Bot emoji. Must be a default emoji. Default: `:derpderp:`',
   botChannel: 'Standup channel. Default: `topic-standup`',
   botTimezone: 'Timezone the bot should operate in. Default: `8`',
-  standupTime: 'Standup time. 24hour format. Default: `09:00`',
-  standupTimeout: 'Standup timeout in seconds. Default: `900` (15minutes)',
-  standupCompleted: 'Manually reset the standupCompleted flag. E.g. `set standupCompleted false`',
+  incidentName: 'A short name/description for the incident',
+  incidentId: 'The jira ticket of the incident',
+  incidentSeverity: 'The severity of the incident',
   debug: 'Enable debug mode. Default: `false`'
 }
 
