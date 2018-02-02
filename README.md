@@ -8,7 +8,7 @@ In Slack:
 - Invite the bot to a channel in Slack
 
 ```sh
-> git clone https://github.com/bennettp123/slack-serenity-bot && cd slack-serenity
+> git clone https://github.com/bennettp123/slack-serenity-bot && cd slack-serenity-bot
 
 # From the command line:
 > yarn
