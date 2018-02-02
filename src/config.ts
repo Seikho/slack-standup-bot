@@ -102,7 +102,7 @@ function backupAsync(cfg?: Config) {
 
 const defaultConfig = {
   botName: 'FarkBot',
-  botEmoji: ':derp_cry:',
+  botEmoji: ':kimcry:',
   botChannel: 'serenity-testing',
   botTimezone: 8,
   users: [],
