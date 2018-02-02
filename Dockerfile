@@ -8,6 +8,9 @@ ENV SLACK_TOKEN=""
 
 VOLUME [ "/code/database" ]
 
+RUN apk add --no-cache \
+  git
+
 COPY package.json /code
 COPY yarn.lock /code
 COPY tsconfig.json /code
