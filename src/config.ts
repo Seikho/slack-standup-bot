@@ -21,6 +21,9 @@ export interface Config {
 
   incidentName: string
   incidentId: string
+  incidentSeverity: string
+  jiraUsername: string
+  jiraPassword: string
 
   debug: boolean
   log: boolean

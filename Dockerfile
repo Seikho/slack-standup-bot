@@ -14,10 +14,12 @@ RUN apk add --no-cache \
 COPY package.json /code
 COPY yarn.lock /code
 COPY tsconfig.json /code
+
+RUN yarn
+
 COPY src /code/src
 
-RUN yarn \
-  && yarn build \
-  && yarn --prod
+RUN yarn build
+
 
 CMD node src/index.js

@@ -3,4 +3,4 @@ import './config'
 import './uh-oh'
 import './severity'
 import './incident-help'
-
+import './raise'

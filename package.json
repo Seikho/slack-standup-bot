@@ -11,8 +11,10 @@
     "url": "https://github.com/bennettp123/slack-serenity-bot/issues"
   },
   "dependencies": {
-    "slacklib": "https://github.com/bennettp123/slacklib.git",
     "typescript": "2.6.2",
+    "@types/node-fetch": "^1.6.7",
+    "node-fetch": "^1.7.3",
+    "slacklib": "^1.0.2",
     "webscaledb": "^0.1.6"
   },
   "keywords": [],
