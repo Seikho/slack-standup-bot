@@ -35,6 +35,10 @@ function listenForCommands(bot: SlackClient) {
       return
     }
 
+    if (data.subtype === 'channel_join') {
+      return
+    }
+
     const text = data.text.trim()
     if (!text.startsWith(id)) {
       return

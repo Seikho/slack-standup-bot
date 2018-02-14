@@ -1,27 +1,18 @@
 import { register } from '../command'
-import { setConfig } from '../../config'
+import { setSeverity } from '../incident'
 
-register(
-  'severity',
-  'Set the severity of the incident',
-  async (bot, message, config, params) => {
-    const severity = params.join(" ")
-
-    const isValid = (severity.length > 0)
-    if (!isValid) {
-      await bot.postMessage({
-        channel: message.channel,
-        text: `What is the severity of the incident?`,
-        ...config.defaultParams
-      })
-      return
-    }
-
-    await setConfig('incidentName', severity)
+register('severity', 'Set the severity of the incident', async (bot, message, config, params) => {
+  try {
+    await setSeverity(message.channel, params[0] as any)
     await bot.postMessage({
       channel: message.channel,
-      text: 'Severity is ' + severity,
-      ...config.defaultParams
+      text: `Severity set to '${params[0]}'`
+    })
+    return
+  } catch (ex) {
+    await bot.postMessage({
+      channel: message.channel,
+      text: `Failed to set seveity: ${ex.message}`
     })
   }
-)
+})

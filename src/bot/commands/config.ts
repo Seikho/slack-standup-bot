@@ -6,9 +6,6 @@ export const setableKeys = {
   botEmoji: 'Bot emoji. Must be a default emoji. Default: `:derpderp:`',
   botChannel: 'Standup channel. Default: `topic-standup`',
   botTimezone: 'Timezone the bot should operate in. Default: `8`',
-  incidentName: 'A short name/description for the incident',
-  incidentId: 'The jira ticket of the incident',
-  incidentSeverity: 'The severity of the incident',
   debug: 'Enable debug mode. Default: `false`'
 }
 

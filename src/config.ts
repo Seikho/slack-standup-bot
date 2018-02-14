@@ -4,6 +4,16 @@ import * as fs from 'fs'
 
 const DB_NAME = path.join(__dirname, '..', 'database', 'config.json')
 
+export interface Incident {
+  channel: string
+  ticketId: string
+  severity: '1' | '2' | '3' | '4'
+  description: string
+  roles: { [user: string]: { name: string; assigns: string[] } }
+  confluenceUrl: string
+  jiraUrl: string
+}
+
 export interface Config {
   token: string
 
@@ -12,16 +22,7 @@ export interface Config {
   botChannel: string
   botTimezone: number
 
-  users: string[]
-
-  standupCompleted: boolean
-  standupTime: string
-  standupDays: number[]
-  standupTimeout: number
-
-  incidentName: string
-  incidentId: string
-  incidentSeverity: string
+  incidents: { [channel: string]: Incident }
 
   jiraUsername: string
   jiraPassword: string
@@ -105,14 +106,7 @@ const defaultConfig = {
   botEmoji: ':kimcry:',
   botChannel: 'serenity-testing',
   botTimezone: 8,
-  users: [],
-  standupCompleted: true,
-  standupTime: '09:00', // 24hour format
-  standupDays: [1, 2, 3, 4, 5], // Monday to Friday
-  standupTimeout: 900, // 15 minutes
+  incidents: {},
   debug: false,
-  log: false,
-  incidentName: '',
-  incidentId: '',
-  incidentSeverity: ''
+  log: false
 }
