@@ -73,7 +73,9 @@ register('raise', `Raise an incident record in JIRA`, async (bot, message, confi
 
     await bot.postMessage({
       channel: config.botChannel,
-      text: `An incident has been raised in <#${message.channel}|${channel.name}>`,
+      text: `:rotating_light: An incident has been raised in <#${message.channel}|${
+        channel.name
+      }> :rotating_light:`,
       ...config.defaultParams
     })
 
