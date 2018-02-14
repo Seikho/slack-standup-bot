@@ -52,7 +52,7 @@ register('recon-help', `Show quick help for recon`, async (bot, message, config,
 })
 
 register(
-  'transtion-help',
+  'transition-help',
   `Show quick help for incident command`,
   async (bot, message, config, params) => {
     const helpMessage = `https://confluence.swmdigital.io/display/DPT/Transition+officer`
