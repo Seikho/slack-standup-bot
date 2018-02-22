@@ -12,8 +12,7 @@
   },
   "dependencies": {
     "node-fetch": "^1.7.3",
-    "slacklib": "^1.0.3",
-    "typescript": "2.6.2",
+    "slacklibbot": "^0.2.0",
     "webscaledb": "^0.1.6"
   },
   "keywords": [],
@@ -32,6 +31,7 @@
     "@types/node": "^9.3.0",
     "@types/node-fetch": "^1.6.7",
     "prettier": "^1.10.2",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.2",
+    "typescript": "^2.7.2"
   }
 }

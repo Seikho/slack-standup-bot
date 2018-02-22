@@ -1,12 +1,11 @@
-import { initaliseConfig } from './config'
-import { getBot } from './bot'
+import './config'
+import { start } from 'slacklibbot'
 
-import './bot/commands'
+import './commands'
 
 async function main() {
   try {
-    await initaliseConfig()
-    await getBot()
+    await start()
   } catch (ex) {
     console.error(ex.message)
     process.exit(1)

@@ -141,18 +141,25 @@ safe-buffer@~5.1.0:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.1.tgz#893312af69b2123def71f57889001671eeb2c853"
 
-slacklib@^1.0.3:
-  version "1.0.3"
-  resolved "https://nexus.swmdigital.io/repository/js-combined/slacklib/-/slacklib-1.0.3.tgz#16345d78335c3dd68ba467e92ae91057b1d5c009"
+slacklib@^1.0.4:
+  version "1.0.4"
+  resolved "https://nexus.swmdigital.io/repository/js-combined/slacklib/-/slacklib-1.0.4.tgz#eef9fec17b6edf96350fbc23c65ca1004c6aacda"
   dependencies:
     "@types/needle" "^2.0.2"
     "@types/ws" "^3.2.1"
     needle "^2.1.0"
     ws "^4.0.0"
 
-typescript@2.6.2:
-  version "2.6.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.6.2.tgz#3c5b6fd7f6de0914269027f03c0946758f7673a4"
+slacklibbot@^0.2.0:
+  version "0.2.0"
+  resolved "https://nexus.swmdigital.io/repository/js-combined/slacklibbot/-/slacklibbot-0.2.0.tgz#6b389195607b9072a615e78abdde30e0d40a1841"
+  dependencies:
+    slacklib "^1.0.4"
+    webscaledb "^0.1.6"
+
+typescript@^2.7.2:
+  version "2.7.2"
+  resolved "https://nexus.swmdigital.io/repository/js-combined/typescript/-/typescript-2.7.2.tgz#2d615a1ef4aee4f574425cdff7026edf81919836"
 
 ultron@~1.1.0:
   version "1.1.1"

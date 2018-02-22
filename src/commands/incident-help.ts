@@ -1,10 +1,9 @@
+import { register, getConfig } from '../config'
+import { sleep } from './util'
 import { SlackClient } from 'slacklib'
-import { register } from '../command'
-import { sleep } from '../util'
-import { Config } from '../../config'
 
 register('first', `Show quick help for first responders`, async (bot, message, config, params) => {
-  await sendHelp(bot, message.channel, config)
+  await sendHelp(bot, message.channel)
 })
 
 register(
@@ -64,7 +63,8 @@ register(
   }
 )
 
-export async function sendHelp(bot: SlackClient, channel: string, config: Config) {
+export async function sendHelp(bot: SlackClient, channel: string) {
+  const config = getConfig()
   const helpMessage = `
 
   *Rules of engagement*

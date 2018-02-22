@@ -1,7 +1,7 @@
-import { register } from '../command'
-import * as incident from '../incident'
+import { register } from '../config'
+import * as incident from './incident'
 import { sendHelp } from './incident-help'
-import { sleep } from '../util'
+import { sleep } from './util'
 
 register('assign', 'Assign a role', async (bot, message, config, params) => {
   try {
@@ -72,7 +72,7 @@ register('raise', `Raise an incident record in JIRA`, async (bot, message, confi
     await sleep(250)
 
     await bot.postMessage({
-      channel: config.botChannel,
+      channel: config.channel,
       text: `:rotating_light: An incident has been raised in <#${message.channel}|${
         channel.name
       }> :rotating_light:`,
@@ -81,7 +81,7 @@ register('raise', `Raise an incident record in JIRA`, async (bot, message, confi
 
     await sleep(250)
 
-    await sendHelp(bot, message.channel, config)
+    await sendHelp(bot, message.channel)
   } catch (ex) {
     await bot.postMessage({
       channel: message.channel,

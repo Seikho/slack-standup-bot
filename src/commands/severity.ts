@@ -1,5 +1,5 @@
-import { register } from '../command'
-import { setSeverity } from '../incident'
+import { register } from '../config'
+import { setSeverity } from './incident'
 
 register('severity', 'Set the severity of the incident', async (bot, message, config, params) => {
   try {
