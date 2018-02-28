@@ -1,4 +1,4 @@
-import { SlackClient, Chat } from 'slacklib'
+import { SlackClient, Chat } from 'slacklibbot'
 import { setConfig, getConfig, Incident } from '../../config'
 import { createJiraTicket } from './jira'
 import { createConfluenceDoc } from './confluence'
@@ -25,7 +25,8 @@ export async function create(
     description: desc,
     ticketId: ticket.id,
     confluenceUrl,
-    jiraUrl: ticket.url
+    jiraUrl: ticket.url,
+    isOpen: true
   }
 
   incidents[msg.channel] = incident
@@ -51,6 +52,20 @@ export async function setSeverity(channel: string, severity: '1' | '2' | '3' | '
   }
 
   inc.severity = severity
+  await save(inc)
+}
+
+export async function setOpenState(channel: string, isOpen: boolean) {
+  const inc = getIncident(channel)
+  if (!inc) {
+    throw new Error('No incident in this channel')
+  }
+
+  if (inc.isOpen === isOpen) {
+    throw new Error(`Incident is already ${isOpen ? 'open' : 'closed'}`)
+  }
+
+  inc.isOpen = isOpen
   await save(inc)
 }
 

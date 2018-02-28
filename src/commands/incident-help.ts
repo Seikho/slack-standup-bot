@@ -1,6 +1,6 @@
 import { register, getConfig } from '../config'
 import { sleep } from './util'
-import { SlackClient } from 'slacklib'
+import { SlackClient } from 'slacklibbot'
 
 register('first', `Show quick help for first responders`, async (bot, message, config, params) => {
   await sendHelp(bot, message.channel)
@@ -119,6 +119,10 @@ export function getGettingStarted(bot: SlackClient) {
 
   1. Create a new channel
   2. In that channel use: \`@${bot.self.name} raise\`
+
+  *Close an incident*:
+
+  1. In the incident channel use: \`@${bot.self.name} close\`
 
   This will create a Jira ticket and Confluence incident journal.
 

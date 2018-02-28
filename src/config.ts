@@ -25,6 +25,7 @@ export interface Incident {
   roles: { [user: string]: { name: string; assigns: string[] } }
   confluenceUrl: string
   jiraUrl: string
+  isOpen: boolean
 }
 
 export interface Config {
