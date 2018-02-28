@@ -65,7 +65,24 @@ register(
 
 export async function sendHelp(bot: SlackClient, channel: string) {
   const config = getConfig()
-  const helpMessage = `
+
+  bot.postMessage({
+    channel,
+    text: getRulesOfEngagement(bot),
+    ...config.defaultParams
+  })
+
+  await sleep(250)
+
+  bot.postMessage({
+    channel,
+    text: getGettingStarted(bot),
+    ...config.defaultParams
+  })
+}
+
+export function getRulesOfEngagement(bot: SlackClient) {
+  return `
 
   *Rules of engagement*
 
@@ -83,8 +100,10 @@ export async function sendHelp(bot: SlackClient, channel: string) {
   In hindsight, every incident has a very simple solution.
 
   `
+}
 
-  const gettingStartedMessage = `
+export function getGettingStarted(bot: SlackClient) {
+  return `
 
   *First Responder*
 
@@ -98,25 +117,12 @@ export async function sendHelp(bot: SlackClient, channel: string) {
 
   *Raise an incident*:
 
-  \`@${bot.self.name} raise incident name\`
+  1. Create a new channel
+  2. In that channel use: \`@${bot.self.name} raise\`
 
-  This will create a jira ticket and confluence doc.
+  This will create a Jira ticket and Confluence incident journal.
 
   *For more help regarding the incident process*: \`@${bot.self.name} help\`
 
   `
-
-  bot.postMessage({
-    channel,
-    text: helpMessage,
-    ...config.defaultParams
-  })
-
-  await sleep(250)
-
-  bot.postMessage({
-    channel,
-    text: gettingStartedMessage,
-    ...config.defaultParams
-  })
 }

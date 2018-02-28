@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "node-fetch": "^1.7.3",
-    "slacklibbot": "^0.2.0",
+    "slacklibbot": "^0.3.0",
     "webscaledb": "^0.1.6"
   },
   "keywords": [],

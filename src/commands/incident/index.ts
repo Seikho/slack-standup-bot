@@ -3,7 +3,12 @@ import { setConfig, getConfig, Incident } from '../../config'
 import { createJiraTicket } from './jira'
 import { createConfluenceDoc } from './confluence'
 
-export async function create(bot: SlackClient, msg: Chat.Message, desc: string) {
+export async function create(
+  bot: SlackClient,
+  msg: Chat.Message,
+  severity: Incident['severity'],
+  desc: string
+) {
   const incidents = getConfig().incidents
   const existing = incidents[msg.channel]
   if (existing) {
@@ -16,7 +21,7 @@ export async function create(bot: SlackClient, msg: Chat.Message, desc: string) 
   const incident: Incident = {
     channel: msg.channel,
     roles: {},
-    severity: '4',
+    severity,
     description: desc,
     ticketId: ticket.id,
     confluenceUrl,

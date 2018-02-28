@@ -35,9 +35,6 @@
   "prettier.useTabs": false,
   "prettier.singleQuote": true,
   "prettier.trailingComma": "none",
-  "prettier.disableLanguages": [
-    "markdown",
-    "json"
-  ],
+  "prettier.disableLanguages": ["markdown", "json"],
   "editor.formatOnSave": true
 }
