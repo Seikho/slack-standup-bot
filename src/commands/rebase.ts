@@ -12,3 +12,11 @@ register('rebase', `Tell us all you rebased! \\o/`, async (bot, msg, cfg) => {
     ...cfg.defaultParams
   })
 })
+
+register('rebases', `Tell us all you rebased! \\o/`, async (bot, msg, cfg) => {
+  await bot.postMessage({
+    channel: msg.channel,
+    text: `*Rebases today*: ${cfg.rebaseCount}`,
+    ...cfg.defaultParams
+  })
+})
