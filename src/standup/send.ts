@@ -1,5 +1,5 @@
-import { getConfig } from '../../config'
-import { SlackClient, Users, Chat } from 'slacklib'
+import { getConfig } from '../config'
+import { SlackClient, Users, Chat } from 'slacklibbot'
 
 const questions = {
   yesterday: 'What did you do yesterday?',
@@ -39,7 +39,7 @@ export async function sendStandup(bot: SlackClient, user: Users.User) {
 
     return (thread: number) =>
       bot.postMessage({
-        channel: config.botChannel,
+        channel: config.channel,
         text: standupMsgs.join('\n'),
         thread_ts: thread,
         username: user.real_name,
@@ -53,7 +53,7 @@ export async function sendStandup(bot: SlackClient, user: Users.User) {
     })
     return (thread: number) =>
       bot.postMessage({
-        channel: config.botChannel,
+        channel: config.channel,
         text: `> *Missed standup today*`,
         thread_ts: thread,
         username: user.real_name,

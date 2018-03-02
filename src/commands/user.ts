@@ -1,6 +1,5 @@
-import { register } from '../command'
-import { getConfig, setConfig } from '../../config'
-import { SlackClient } from 'slacklib'
+import { register, setConfig, getConfig } from '../config'
+import { SlackClient } from 'slacklibbot'
 
 register(
   'adduser',

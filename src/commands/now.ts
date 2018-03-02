@@ -1,4 +1,4 @@
-import { register } from '../command'
+import { register } from '../config'
 
 register('now', `What the current time is on the bot`, async (bot, message, config, params) => {
   bot.postMessage({

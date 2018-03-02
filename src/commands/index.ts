@@ -1,5 +1,3 @@
-import './help'
-import './config'
 import './user'
 import './now'
 import './days'

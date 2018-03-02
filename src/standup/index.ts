@@ -1,10 +1,9 @@
-import { getBot } from '../'
-import { getConfig, setConfig } from '../../config'
+import { getConfig, setConfig } from '../config'
 import { sendStandup } from './send'
 import { sleep } from './util'
-import { Chat, Users, SlackClient } from 'slacklib'
+import { Chat, Users, SlackClient, getBot, start } from 'slacklibbot'
 
-export async function start() {
+export async function initStandup() {
   try {
     const config = getConfig()
     const standupDate = toDate(config.standupTime)
@@ -48,7 +47,7 @@ async function performStandup() {
     day: 'numeric'
   })}*:`
 
-  bot.postMessage({ channel: config.botChannel, text: startText, ...config.defaultParams })
+  bot.postMessage({ channel: config.channel, text: startText, ...config.defaultParams })
   const msg = await waitForMessage(bot, startText)
 
   for (const user of users) {
@@ -141,7 +140,7 @@ function getNow() {
   const now = new Date()
 
   const actualOffset = now.getTimezoneOffset()
-  const botOffset = config.botTimezone * 60 * -1
+  const botOffset = config.timezone * 60 * -1
   const adjustment = actualOffset - botOffset
 
   now.setMinutes(now.getMinutes() + adjustment)

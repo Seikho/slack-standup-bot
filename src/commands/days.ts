@@ -1,5 +1,4 @@
-import { register } from '../command'
-import { setConfig } from '../../config'
+import { register, setConfig } from '../config'
 
 register(
   'days',

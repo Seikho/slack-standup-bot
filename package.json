@@ -11,7 +11,7 @@
     "url": "https://github.com/seikho/slack-standup-bot/issues"
   },
   "dependencies": {
-    "slacklib": "^1.0.3",
+    "slacklibbot": "^0.5.4",
     "webscaledb": "^0.1.6"
   },
   "keywords": [],
