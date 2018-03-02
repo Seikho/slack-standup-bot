@@ -11,7 +11,7 @@ register('incidents', 'List the open incidents', async (bot, msg, cfg) => {
       continue
     }
 
-    const channel = bot.channels.find(ch => ch.id === incident.channel)
+    const channel = bot.channels.find(ch => ch && ch.id === incident.channel)
     messages.push(
       `<#${channel!.id}|${channel!.name}>: ${incident.ticketId} -- ${incident.description}`
     )
