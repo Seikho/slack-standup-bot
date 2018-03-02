@@ -23,7 +23,7 @@ export async function initStandup() {
 
     // If it's a new day, reset the standupCompleted flag
     if (getNow() < standupDate) {
-      const bot: SlackClient = await getBot()
+      const bot = await getBot()
 
       if (config.rebaseCount > config.rebaseRecord) {
         await setConfig('rebaseRecord', config.rebaseCount)
