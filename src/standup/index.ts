@@ -3,8 +3,15 @@ import { sendStandup } from './send'
 import { sleep } from './util'
 import { Chat, Users, SlackClient, getBot, start } from 'slacklibbot'
 
+let hasStarted = false
+
 export async function initStandup() {
   try {
+    if (!hasStarted) {
+      hasStarted = true
+      await start()
+    }
+
     const config = getConfig()
     const standupDate = toDate(config.standupTime)
     const haveStoodup = config.standupCompleted
@@ -16,11 +23,27 @@ export async function initStandup() {
 
     // If it's a new day, reset the standupCompleted flag
     if (getNow() < standupDate) {
+      const bot: SlackClient = await getBot()
+
+      if (config.rebaseCount > config.rebaseRecord) {
+        await setConfig('rebaseRecord', config.rebaseCount)
+        await bot.postMessage({
+          channel: config.rebaseChannel,
+          text: [
+            'Congratulations! We beat the rebase record!',
+            `*Previous*: ${config.rebaseRecord}`,
+            `*New record*: ${config.rebaseCount}`
+          ].join('\n'),
+          ...config.defaultParams
+        })
+      }
+
+      await setConfig('rebaseCount', 0)
       await setConfig('standupCompleted', false)
     }
 
     await sleep(1)
-    start()
+    initStandup()
   } catch (ex) {
     console.error(ex)
   }

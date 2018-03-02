@@ -9,7 +9,10 @@ const { setConfig, getConfig, register } = setup<Config>({
   standupCompleted: true,
   standupTime: '09:00', // 24hour format
   standupDays: [1, 2, 3, 4, 5], // Monday to Friday
-  standupTimeout: 900 // 15 minutes
+  standupTimeout: 900, // 15 minutes
+  rebaseChannel: 'interest-memes-sfw',
+  rebaseCount: 0,
+  rebaseRecord: 0
 })
 
 export { setConfig, getConfig, register }
@@ -41,4 +44,8 @@ export interface Config {
   standupTime: string
   standupDays: number[]
   standupTimeout: number
+
+  rebaseChannel: string
+  rebaseCount: number
+  rebaseRecord: number
 }
