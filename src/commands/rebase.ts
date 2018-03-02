@@ -13,7 +13,7 @@ register('rebase', `Tell us all you rebased! \\o/`, async (bot, msg, cfg) => {
   })
 })
 
-register('rebases', `Tell us all you rebased! \\o/`, async (bot, msg, cfg) => {
+register('rebases', `Find out how many people enjoyed rebasing today`, async (bot, msg, cfg) => {
   await bot.postMessage({
     channel: msg.channel,
     text: `*Rebases today*: ${cfg.rebaseCount}`,
