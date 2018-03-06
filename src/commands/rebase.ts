@@ -26,22 +26,26 @@ register('rebase', `Tell us all you rebased! \\o/`, async (bot, msg, cfg) => {
   }
 
   if (cfg.rebaseUrl) {
-    needle.post(`${cfg.rebaseUrl}/rebase?token=${cfg.rebaseUrlToken}`, {}, (err, res) => {
+    const url = cfg.rebaseUrl.replace('<', '').replace('>', '')
+    needle.post(`${url}/rebase?token=${cfg.rebaseUrlToken}`, {}, (err, res) => {
       if (err) {
         console.error(`Failed to reset rebase count: ${err}`)
+        sendMessage()
         return
       }
 
       if (!res) {
+        sendMessage()
         return
       }
 
       if (res.statusCode === 200) {
-        sendMessage(`<${cfg.rebaseUrl}|DaysSinceLastRebase> has been reset!`)
+        sendMessage(`<${url}|DaysSinceLastRebase> has been reset!`)
         return
       }
 
       console.error(`Failed to reset rebase count: Status code: ${res.statusCode}`)
+      sendMessage()
     })
     return
   }
