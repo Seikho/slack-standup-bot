@@ -13,9 +13,11 @@ const { setConfig, getConfig, register } = setup<Config>(
     standupTimeout: 900, // 15 minutes
     rebaseChannel: 'interest-memes-sfw',
     rebaseCount: 0,
-    rebaseRecord: 0
+    rebaseRecord: 0,
+    rebaseUrl: '',
+    rebaseUrlToken: ''
   },
-  ['rebaseCount', 'rebaseRecord']
+  ['rebaseCount', 'rebaseRecord', 'rebaseUrlToken']
 )
 
 export { setConfig, getConfig, register }
@@ -51,4 +53,6 @@ export interface Config {
   rebaseChannel: string
   rebaseCount: number
   rebaseRecord: number
+  rebaseUrl: string
+  rebaseUrlToken: string
 }

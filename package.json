@@ -11,6 +11,7 @@
     "url": "https://github.com/seikho/slack-standup-bot/issues"
   },
   "dependencies": {
+    "needle": "^2.2.0",
     "slacklibbot": "^0.5.6",
     "webscaledb": "^0.1.6"
   },
@@ -27,6 +28,7 @@
     "clean": "rimraf ./src/**/*.js ./src/**/*.js.map"
   },
   "devDependencies": {
+    "@types/needle": "^2.0.2",
     "@types/node": "^9.3.0",
     "prettier": "^1.10.2",
     "rimraf": "^2.6.2",
