@@ -10,6 +10,14 @@ register('raise', `Raise an incident record in JIRA`, async (bot, msg, cfg, para
     ...cfg.defaultParams
   }
 
+  if (!msg.channel.startsWith('C')) {
+    await bot.postMessage({
+      ...baseMsg,
+      text: '*Error*: Please raise the incident in a new channel'
+    })
+    return
+  }
+
   await bot.postMessage({
     ...baseMsg,
     text: [
