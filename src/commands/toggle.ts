@@ -1,5 +1,6 @@
 import { register } from '../config'
 import { setOpenState, getIncident } from './incident'
+import { ticketToURL } from './incident/jira'
 
 register('incidents', 'List the open incidents', async (bot, msg, cfg) => {
   const incidentKeys = Object.keys(cfg.incidents)
@@ -11,9 +12,21 @@ register('incidents', 'List the open incidents', async (bot, msg, cfg) => {
       continue
     }
 
-    const channel = bot.channels.find(ch => ch && ch.id === incident.channel)
+    let channel = bot.channels.find(ch => ch && ch.id === incident.channel)
+
+    if (!channel) {
+      // This should re-fill the cache with any missing channels
+      const allChannels = await bot.getChannels()
+      channel = allChannels.find(ch => ch && ch.id === incident.channel)
+    }
+
+    const channelName = channel ? channel.name : 'channel-name-unknown'
+
+    const ticketUrl = ticketToURL(incident.ticketId)
     messages.push(
-      `<#${channel!.id}|${channel!.name}>: ${incident.ticketId} -- ${incident.description}`
+      `<#${incident.channel}|${channelName}>: <${ticketUrl}|${incident.ticketId}> -- ${
+        incident.description
+      }`
     )
   }
 
@@ -92,4 +105,31 @@ register('open', 'Re-open an incident', async (bot, msg, cfg, params) => {
       ...cfg.defaultParams
     })
   }
+})
+
+register('details', 'Get the incident information of the incident', async (bot, msg, cfg) => {
+  const incident = getIncident(msg.channel)
+
+  if (!incident) {
+    await bot.postMessage({
+      channel: msg.channel,
+      text: 'There is no incident information for this channel',
+      ...cfg.defaultParams
+    })
+    return
+  }
+
+  const info = [
+    `*Status*: ${incident.isOpen ? 'OPEN' : 'CLOSED'}`,
+    `*Severity*: ${incident.severity}`,
+    `*Issue*: ${incident.description}`,
+    `*Jira*: ${incident.ticketId}: ${incident.jiraUrl}`,
+    `*Confluence*: ${incident.confluenceUrl}`
+  ]
+
+  await bot.postMessage({
+    channel: msg.channel,
+    text: info.join('\n'),
+    ...cfg.defaultParams
+  })
 })

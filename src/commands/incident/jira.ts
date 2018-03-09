@@ -37,6 +37,10 @@ export async function createJiraTicket(description: string) {
   const ticket: any = await res.json()
   return {
     id: ticket.key,
-    url: `https://jira.swmdigital.io/browse/${ticket.key}`
+    url: ticketToURL(ticket.key)
   }
+}
+
+export function ticketToURL(ticketId: string) {
+  return `https://jira.swmdigital.io/browse/${ticketId}`
 }
