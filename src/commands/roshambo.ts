@@ -5,7 +5,8 @@ register(
   'roshambo',
   `Highly advanced and diplomatic decision maker and arugment resolver. *Usage*: roshambo @user`,
   async (bot, msg, cfg, args) => {
-    if (!msg.channel.startsWith('C')) {
+    const isChannel = msg.channel.startsWith('C') || msg.channel.startsWith('G')
+    if (!isChannel) {
       return bot.postMessage({
         channel: msg.channel,
         text: 'This feature must be used in a channel',
