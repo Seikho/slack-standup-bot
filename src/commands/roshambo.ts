@@ -3,7 +3,7 @@ import { readMessage } from 'slacklibbot'
 
 register(
   'roshambo',
-  `Highly advanced and diplomatic decision maker and arugment resolver.\n*Usage*: roshambo @user`,
+  `Highly advanced and diplomatic decision maker and arugment resolver. *Usage*: roshambo @user`,
   async (bot, msg, cfg, args) => {
     if (!msg.channel.startsWith('C')) {
       return bot.postMessage({
