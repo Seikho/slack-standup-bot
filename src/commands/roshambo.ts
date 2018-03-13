@@ -195,7 +195,8 @@ async function leaderboard(bot: SlackClient, channel: string, userId: string) {
 
   return bot.postMessage({
     channel,
-    text: messages.join('\n')
+    text: messages.join('\n'),
+    ...cfg.defaultParams
   })
 }
 
