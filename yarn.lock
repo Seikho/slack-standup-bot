@@ -128,9 +128,9 @@ slacklib@^1.1.4:
     needle "^2.1.0"
     ws "^4.0.0"
 
-slacklibbot@^0.5.6:
-  version "0.5.6"
-  resolved "https://registry.yarnpkg.com/slacklibbot/-/slacklibbot-0.5.6.tgz#a0a435e95b85eb8bf5858f4220dc39e67e1e5788"
+slacklibbot@^0.5.7:
+  version "0.5.7"
+  resolved "https://registry.yarnpkg.com/slacklibbot/-/slacklibbot-0.5.7.tgz#8578ffd66b74f9d5cf8cee39b43c725696be65ac"
   dependencies:
     slacklib "^1.1.4"
     webscaledb "^0.1.6"

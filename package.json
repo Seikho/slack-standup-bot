@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "needle": "^2.2.0",
-    "slacklibbot": "^0.5.6",
+    "slacklibbot": "^0.5.7",
     "webscaledb": "^0.1.6"
   },
   "keywords": [],
