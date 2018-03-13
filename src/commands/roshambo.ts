@@ -67,6 +67,8 @@ register(
       if (!isValid(response)) {
         return getSelection(userId, '', true)
       }
+
+      await bot.directMessage(userId, { text: 'Response accepted', ...cfg.defaultParams })
       return response.toLowerCase().trim()
     }
 
