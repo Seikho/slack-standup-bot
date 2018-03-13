@@ -15,9 +15,10 @@ const { setConfig, getConfig, register } = setup<Config>(
     rebaseCount: 0,
     rebaseRecord: 0,
     rebaseUrl: '',
-    rebaseUrlToken: ''
+    rebaseUrlToken: '',
+    roshambo: {}
   },
-  ['rebaseCount', 'rebaseRecord', 'rebaseUrlToken']
+  ['rebaseCount', 'rebaseRecord', 'rebaseUrlToken', 'roshambo']
 )
 
 export { setConfig, getConfig, register }
@@ -55,4 +56,14 @@ export interface Config {
   rebaseRecord: number
   rebaseUrl: string
   rebaseUrlToken: string
+
+  roshambo: { [userId: string]: Roshambo }
+}
+
+export interface Roshambo {
+  userId: string
+  inGame: boolean
+  wins: number
+  losses: number
+  draws: number
 }
