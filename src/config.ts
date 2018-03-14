@@ -15,38 +15,12 @@ const { setConfig, getConfig, register } = setup<Config>(
     rebaseCount: 0,
     rebaseRecord: 0,
     rebaseUrl: '',
-    rebaseUrlToken: '',
-    roshambo: {}
+    rebaseUrlToken: ''
   },
-  ['rebaseCount', 'rebaseRecord', 'rebaseUrlToken', 'roshambo']
+  ['rebaseCount', 'rebaseRecord', 'rebaseUrlToken']
 )
 
 export { setConfig, getConfig, register }
-
-/**
- * The top-level configuration keys changed
- * This will backfill them if they aren't set
- */
-
-export async function backfillConfig() {
-  const cfg: any = getConfig()
-
-  // Set all players to out of game
-  const roshambo = cfg.roshambo
-  const players = Object.keys(roshambo)
-  for (const id of players) {
-    roshambo[id].inGame = false
-  }
-
-  await setConfig('roshambo', roshambo)
-
-  if (cfg.name !== cfg.botName) {
-    await setConfig('name', cfg.botName)
-    await setConfig('emoji', cfg.botEmoji)
-    await setConfig('timezone', cfg.botTimezone)
-    await setConfig('channel', cfg.botChannel)
-  }
-}
 
 export interface Config {
   name: string
@@ -66,15 +40,4 @@ export interface Config {
   rebaseRecord: number
   rebaseUrl: string
   rebaseUrlToken: string
-
-  roshambo: { [userId: string]: Roshambo }
-}
-
-export interface Roshambo {
-  rating: number
-  userId: string
-  inGame: boolean
-  wins: number
-  losses: number
-  draws: number
 }

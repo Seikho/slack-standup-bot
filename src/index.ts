@@ -1,4 +1,3 @@
-import { backfillConfig } from './config'
 import { start } from 'slacklibbot'
 import { initStandup } from './standup'
 import './commands'
@@ -22,7 +21,6 @@ async function main() {
   }
 
   try {
-    await backfillConfig()
     await initStandup()
   } catch (ex) {
     console.error(ex.message || ex)
