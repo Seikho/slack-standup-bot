@@ -19,9 +19,9 @@ export async function game(bot: SlackClient, msg: Chat.Message, opponentId: stri
   const toChannel = (text: string) =>
     bot.postMessage({ channel: msg.channel, text, ...cfg.defaultParams })
 
-  // if (opponentId === msg.user) {
-  //   return toChannel('You cannot challenge yourself')
-  // }
+  if (opponentId === msg.user) {
+    return toChannel('You cannot challenge yourself')
+  }
 
   const challenger = bot.users.find(u => u.id === msg.user)
   const opponent = bot.users.find(u => u.id === opponentId)
@@ -94,6 +94,7 @@ export async function game(bot: SlackClient, msg: Chat.Message, opponentId: stri
         return sendResult(`${opponent.real_name} wins!`)
     }
   } catch (ex) {
+    await setInGame(msg.user, opponentId, true)
     bot.postMessage({
       channel: msg.channel,
       text: `Roshambo between ${challenger.real_name} and ${
@@ -193,7 +194,7 @@ enum Result {
   Draw = 0
 }
 
-async function setInGame(challengerId: string, opponentId: string) {
+async function setInGame(challengerId: string, opponentId: string, toOutOfGame: boolean = false) {
   const cfg = getConfig()
   const challenger = cfg.roshambo[challengerId] || { ...defaultHistory, userId: challengerId }
   const opponent = cfg.roshambo[opponentId] || { ...defaultHistory, userId: opponentId }
@@ -202,8 +203,9 @@ async function setInGame(challengerId: string, opponentId: string) {
     return false
   }
 
-  challenger.inGame = true
-  opponent.inGame = true
+  challenger.inGame = toOutOfGame ? false : true
+  opponent.inGame = toOutOfGame ? false : true
+
   const existing = cfg.roshambo
   existing[challengerId] = challenger
   existing[opponentId] = opponent

@@ -30,6 +30,16 @@ export { setConfig, getConfig, register }
 
 export async function backfillConfig() {
   const cfg: any = getConfig()
+
+  // Set all players to out of game
+  const roshambo = cfg.roshambo
+  const players = Object.keys(roshambo)
+  for (const id of players) {
+    roshambo[id].inGame = false
+  }
+
+  await setConfig('roshambo', roshambo)
+
   if (cfg.name !== cfg.botName) {
     await setConfig('name', cfg.botName)
     await setConfig('emoji', cfg.botEmoji)
