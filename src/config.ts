@@ -61,6 +61,7 @@ export interface Config {
 }
 
 export interface Roshambo {
+  rating: number
   userId: string
   inGame: boolean
   wins: number

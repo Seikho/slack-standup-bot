@@ -13,13 +13,14 @@ export async function stats(bot: SlackClient, userId: string, channel: string) {
 }
 
 export interface Stats {
+  rating: number
   wins: number
   losses: number
   draws: number
 }
 
-export function toStats({ wins, losses, draws }: Stats) {
-  return `${wins}W/${losses}L/${draws}D`
+export function toStats({ rating, wins, losses, draws }: Stats) {
+  return `*${rating || 1500}* ${wins}W/${losses}L/${draws}D`
 }
 
 export function getUserStats(userId: string) {
@@ -28,6 +29,7 @@ export function getUserStats(userId: string) {
 
   if (!user) {
     return {
+      rating: 1500,
       wins: 0,
       losses: 0,
       draws: 0
@@ -35,6 +37,7 @@ export function getUserStats(userId: string) {
   }
 
   return {
+    rating: user.rating || 1500,
     wins: user.wins,
     losses: user.losses,
     draws: user.draws

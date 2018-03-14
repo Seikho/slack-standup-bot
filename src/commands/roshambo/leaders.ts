@@ -10,6 +10,17 @@ export async function leaderboard(bot: SlackClient, channel: string, userId: str
     const left = cfg.roshambo[l]
     const right = cfg.roshambo[r]
 
+    const leftRating = left.rating || 1500
+    const rightRating = right.rating || 1500
+
+    if (leftRating > rightRating) {
+      return -1
+    }
+
+    if (leftRating < rightRating) {
+      return 1
+    }
+
     if (left.wins > right.wins) {
       return -1
     }

@@ -1,6 +1,7 @@
 import { SlackClient, Chat, readMessage } from 'slacklibbot'
 import { getConfig, setConfig, Roshambo } from '../../config'
 import { toStats, getUserStats } from './stats'
+import * as elo from 'ratings'
 
 export async function game(bot: SlackClient, msg: Chat.Message, opponentId: string) {
   const cfg = getConfig()
@@ -18,9 +19,9 @@ export async function game(bot: SlackClient, msg: Chat.Message, opponentId: stri
   const toChannel = (text: string) =>
     bot.postMessage({ channel: msg.channel, text, ...cfg.defaultParams })
 
-  if (opponentId === msg.user) {
-    return toChannel('You cannot challenge yourself')
-  }
+  // if (opponentId === msg.user) {
+  //   return toChannel('You cannot challenge yourself')
+  // }
 
   const challenger = bot.users.find(u => u.id === msg.user)
   const opponent = bot.users.find(u => u.id === opponentId)
@@ -55,24 +56,33 @@ export async function game(bot: SlackClient, msg: Chat.Message, opponentId: stri
       `*Opponent*: ${opponent.real_name} picked ${right}`
     ]
 
+    const results = await updateResults(msg.user, opponentId, winner)
+
     const sendResult = (text: string) => {
       const leftStats = getUserStats(msg.user)
       const rightStats = getUserStats(opponentId)
+
+      const preWhite = results.shift.white >= 0 ? '+' : ''
+      const preBlack = results.shift.black >= 0 ? '+' : ''
+
+      const shiftText = [
+        `(${results.white} *${preWhite}${results.shift.white}*)`,
+        `(${results.black} *${preBlack}${results.shift.black}*)`
+      ]
 
       bot.postMessage({
         channel: msg.channel,
         text: [
           ...pre,
           `*Result*: ${text}`,
-          `*${challenger.real_name}*: ${toStats(leftStats)}`,
-          `*${opponent.real_name}*: ${toStats(rightStats)}`,
+          `*${challenger.real_name}*: ${toStats(leftStats)} ${shiftText[0]}`,
+          `*${opponent.real_name}*: ${toStats(rightStats)} ${shiftText[1]}`,
           ''
         ].join('\n'),
         ...cfg.defaultParams
       })
     }
 
-    await updateResults(msg.user, opponentId, winner)
     switch (winner) {
       case Result.Draw:
         return sendResult('Draw!')
@@ -113,6 +123,17 @@ async function updateResults(leftId: string, rightId: string, result: Result) {
   const cfg = getConfig()
   const challenger = cfg.roshambo[leftId]
   const opponent = cfg.roshambo[rightId]
+  if (!challenger.rating) {
+    challenger.rating = 1500
+  }
+
+  if (!opponent.rating) {
+    opponent.rating = 1500
+  }
+
+  const results = elo.adjustment(challenger.rating, opponent.rating, result)
+  challenger.rating = results.white
+  opponent.rating = results.black
 
   challenger.inGame = false
   opponent.inGame = false
@@ -139,6 +160,7 @@ async function updateResults(leftId: string, rightId: string, result: Result) {
   roshambo[rightId] = opponent
 
   await setConfig('roshambo', roshambo)
+  return results
 }
 
 function getWinner(left: string, right: string) {
@@ -166,9 +188,9 @@ function isValid(selection: string) {
 }
 
 enum Result {
-  Left,
-  Right,
-  Draw
+  Left = 1,
+  Right = -1,
+  Draw = 0
 }
 
 async function setInGame(challengerId: string, opponentId: string) {
@@ -192,6 +214,7 @@ async function setInGame(challengerId: string, opponentId: string) {
 
 const defaultHistory: Roshambo = {
   userId: '',
+  rating: 1500,
   inGame: false,
   wins: 0,
   losses: 0,

@@ -50,7 +50,6 @@ export async function initStandup() {
 }
 
 async function performStandup() {
-  console.log('Starting standup')
   const users = await getUsers()
   if (!users.length) {
     return

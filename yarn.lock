@@ -105,6 +105,10 @@ prettier@^1.10.2:
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.11.1.tgz#61e43fc4cd44e68f2b0dfc2c38cd4bb0fccdcc75"
 
+ratings@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/ratings/-/ratings-0.4.1.tgz#119abd3fab96b8a45c18a629f494b4aa7feb999b"
+
 rimraf@^2.6.2:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.6.2.tgz#2ed8150d24a16ea8651e6d6ef0f47c4158ce7a36"
