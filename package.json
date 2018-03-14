@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "needle": "^2.2.0",
-    "ratings": "^0.4.1",
+    "ratings": "^0.4.2",
     "slacklibbot": "^0.5.7",
     "webscaledb": "^0.1.6"
   },
