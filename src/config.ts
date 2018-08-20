@@ -7,6 +7,7 @@ const { setConfig, getConfig, register } = setup<Config>(
     channel: 'team-productanddev',
     timezone: 8,
 
+    jiraSpace: '',
     jiraUsername: '',
     jiraPassword: '',
     atlassianAccount: '',
@@ -38,6 +39,7 @@ export interface Config {
 
   jiraUsername: string
   jiraPassword: string
+  jiraSpace: string
 
   confluenceSpace: string
   confluenceUsername: string

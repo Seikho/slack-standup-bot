@@ -10,7 +10,7 @@ register(
   'command-help',
   `Show quick help for incident command`,
   async (bot, message, config, params) => {
-    const helpMessage = `https://confluence.swmdigital.io/display/DPT/Incident+Command`
+    const helpMessage = `Placeholder text`
     bot.postMessage({
       channel: message.channel,
       text: helpMessage,
@@ -23,7 +23,7 @@ register(
   'comms-help',
   `Show quick help for the communications officer`,
   async (bot, message, config, params) => {
-    const helpMessage = `https://confluence.swmdigital.io/display/DPT/Communications+officer`
+    const helpMessage = `Placeholder text`
     bot.postMessage({
       channel: message.channel,
       text: helpMessage,
@@ -33,7 +33,7 @@ register(
 )
 
 register('point-help', `Show quick help for point`, async (bot, message, config, params) => {
-  const helpMessage = `https://confluence.swmdigital.io/display/DPT/Point`
+  const helpMessage = `Placeholder text`
   bot.postMessage({
     channel: message.channel,
     text: helpMessage,
@@ -42,7 +42,7 @@ register('point-help', `Show quick help for point`, async (bot, message, config,
 })
 
 register('recon-help', `Show quick help for recon`, async (bot, message, config, params) => {
-  const helpMessage = `https://confluence.swmdigital.io/display/DPT/Recon`
+  const helpMessage = `Placeholder text`
   bot.postMessage({
     channel: message.channel,
     text: helpMessage,
@@ -54,7 +54,7 @@ register(
   'transition-help',
   `Show quick help for incident command`,
   async (bot, message, config, params) => {
-    const helpMessage = `https://confluence.swmdigital.io/display/DPT/Transition+officer`
+    const helpMessage = `Placeholder text`
     bot.postMessage({
       channel: message.channel,
       text: helpMessage,
@@ -107,18 +107,15 @@ export function getGettingStarted(bot: SlackClient) {
 
   *First Responder*
 
-  The rules of engagement can be found here:
-
-  https://confluence.swmdigital.io/display/DPT/Incident+response+process
-
-  If you are the first to notice something is wrong, you should follow the first responder document:
-
-  https://confluence.swmdigital.io/display/DPT/First+responder
+  If you are the first to notice something is wrong, you should:
 
   *Raise an incident*:
 
-  1. Create a new channel
-  2. In that channel use: \`@${bot.self.name} raise\`
+  1. Notify stakeholders that there is an incident
+  2. Create a new channel
+  3. In that channel use: \`@${bot.self.name} raise\`
+
+  Once the incident has been resolved:
 
   *Close an incident*:
 
@@ -127,6 +124,5 @@ export function getGettingStarted(bot: SlackClient) {
   This will create a Jira ticket and Confluence incident journal.
 
   *For more help regarding the incident process*: \`@${bot.self.name} help\`
-
   `
 }
