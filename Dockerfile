@@ -1,6 +1,6 @@
 FROM mhart/alpine-node:8
 
-LABEL description "Slack Serenity Bot"
+LABEL description "Slack Incident Management"
 
 WORKDIR /code
 

@@ -1,6 +1,6 @@
 import { register, getConfig } from '../config'
 import { sleep } from './util'
-import { SlackClient } from 'slacklibbot'
+import { SlackClient } from 'slacklib'
 
 register('first', `Show quick help for first responders`, async (bot, message, config, params) => {
   await sendHelp(bot, message.channel)

@@ -142,25 +142,19 @@ sax@^1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
 
-slacklib@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/slacklib/-/slacklib-1.1.0.tgz#476b7d20716e5100585c7f9dfd69cd123078fb52"
+slacklib@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/slacklib/-/slacklib-3.1.2.tgz#3807ea233b82eed402799ab878307be29adafbf6"
   dependencies:
     "@types/needle" "^2.0.2"
     "@types/ws" "^3.2.1"
     needle "^2.1.0"
+    webscaledb "^0.1.6"
     ws "^4.0.0"
 
-slacklibbot@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/slacklibbot/-/slacklibbot-0.4.1.tgz#1663cd47d77dca73c3a33e2b7a6df9eb52e21c9a"
-  dependencies:
-    slacklib "^1.1.0"
-    webscaledb "^0.1.6"
-
-typescript@^2.7.2:
-  version "2.7.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.7.2.tgz#2d615a1ef4aee4f574425cdff7026edf81919836"
+typescript@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.0.1.tgz#43738f29585d3a87575520a4b93ab6026ef11fdb"
 
 webscaledb@^0.1.6:
   version "0.1.6"

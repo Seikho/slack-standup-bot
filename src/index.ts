@@ -1,5 +1,5 @@
 import './config'
-import { start } from 'slacklibbot'
+import { start } from 'slacklib'
 
 import './commands'
 

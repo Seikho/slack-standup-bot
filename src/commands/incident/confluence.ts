@@ -2,6 +2,10 @@ import fetch from 'node-fetch'
 import { getConfig } from '../../config'
 
 export async function createConfluenceDoc(title: string) {
+  if (!canCreate()) {
+    return
+  }
+
   const config = getConfig()
   const authHash: string = new Buffer(
     config.confluenceUsername + ':' + config.confluencePassword
@@ -9,7 +13,7 @@ export async function createConfluenceDoc(title: string) {
 
   // read existing template
   const templateRes = await fetch(
-    'https://confluence.swmdigital.io/rest/api/content/7444590?expand=body.storage',
+    `https://${config.atlassianAccount}.atlassian.net/rest/api/content/7444590?expand=body.storage`,
     {
       headers: {
         Authorization: 'Basic ' + authHash
@@ -27,14 +31,14 @@ export async function createConfluenceDoc(title: string) {
   const req = {
     type: 'page',
     title: title,
-    space: { key: 'CYEX' },
+    space: { key: config.confluenceSpace },
     body: {
       storage: { value: template.body.storage.value, representation: 'storage' }
     },
     ancestors: [{ id: 4751554 }]
   }
 
-  const res = await fetch('https://confluence.swmdigital.io/rest/api/content', {
+  const res = await fetch(`https://${config.atlassianAccount}.atlassian.net/rest/api/content`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -49,5 +53,20 @@ export async function createConfluenceDoc(title: string) {
   }
 
   const doc: any = await res.json()
-  return 'https://confluence.swmdigital.io' + doc._links.webui
+  return `https://${config.atlassianAccount}.atlassian.net${doc._links.webui}`
+}
+
+function canCreate() {
+  const cfg = getConfig()
+  if (
+    !cfg.atlassianAccount ||
+    !cfg.confluenceUsername ||
+    !cfg.confluencePassword ||
+    !cfg.jiraUsername ||
+    !cfg.jiraUsername
+  ) {
+    return false
+  }
+
+  return true
 }

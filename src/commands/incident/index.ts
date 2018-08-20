@@ -1,4 +1,4 @@
-import { SlackClient, Chat } from 'slacklibbot'
+import { SlackClient, Chat } from 'slacklib'
 import { setConfig, getConfig, Incident } from '../../config'
 import { createJiraTicket } from './jira'
 import { createConfluenceDoc } from './confluence'
@@ -17,6 +17,9 @@ export async function create(
 
   const ticket = await createJiraTicket(desc)
   const confluenceUrl = await createConfluenceDoc(`${ticket.id} - ${desc}`)
+  if (!confluenceUrl) {
+    return
+  }
 
   const incident: Incident = {
     channel: msg.channel,

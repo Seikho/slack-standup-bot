@@ -2,7 +2,7 @@ import { register, Incident } from '../config'
 import * as incident from './incident'
 import { getRulesOfEngagement } from './incident-help'
 import { sleep } from './util'
-import { readMessage } from 'slacklibbot'
+import { readMessage } from 'slacklib'
 
 register('raise', `Raise an incident record in JIRA`, async (bot, msg, cfg, params) => {
   const baseMsg = {
@@ -67,14 +67,11 @@ register('raise', `Raise an incident record in JIRA`, async (bot, msg, cfg, para
     })
 
     const result = await incident.create(bot, msg, severity, description)
+    const text = getResultText(result)
+
     await bot.postMessage({
       channel: msg.channel,
-      text: [
-        `Yep. Good.`,
-        `I've raised *${result.ticketId}* (${result.jiraUrl})`,
-        `*Journal*: ${result.confluenceUrl}`
-      ].join('\n'),
-      ...cfg.defaultParams
+      text
     })
 
     await sleep(250)
@@ -100,3 +97,15 @@ register('raise', `Raise an incident record in JIRA`, async (bot, msg, cfg, para
     })
   }
 })
+
+function getResultText(result?: Incident) {
+  if (!result) {
+    return `Yep. Good. I've raised the incident.`
+  }
+
+  return [
+    `Yep. Good.`,
+    `I've raised *${result.ticketId}* (${result.jiraUrl})`,
+    `*Journal*: ${result.confluenceUrl}`
+  ].join('\n')
+}
