@@ -17,9 +17,6 @@ export async function create(
 
   const ticket = await createJiraTicket(desc)
   const confluenceUrl = await createConfluenceDoc(`${ticket.id} - ${desc}`)
-  if (!confluenceUrl) {
-    return
-  }
 
   const incident: Incident = {
     channel: msg.channel,
@@ -27,7 +24,7 @@ export async function create(
     severity,
     description: desc,
     ticketId: ticket.id,
-    confluenceUrl,
+    confluenceUrl: confluenceUrl || 'not-available',
     jiraUrl: ticket.url,
     isOpen: true
   }
